@@ -1,0 +1,10 @@
+build:
+  stage: build
+  tags:
+  - docker
+  - docker-production
+  script:
+    - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN docker.refundmanager.de
+    - X_DOCKER_IMAGE_NAME=`echo $CI_BUILD_REF_NAME | tr '/' '_'`
+    - docker build -t docker.refundmanager.de/customer/pdf-service:$X_DOCKER_IMAGE_NAME .
+    - docker push docker.refundmanager.de/customer/pdf-service:$X_DOCKER_IMAGE_NAME
