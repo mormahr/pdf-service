@@ -23,5 +23,5 @@ RUN pip install --no-cache-dir -e .
 
 COPY . .
 
-CMD [ "gunicorn", "-w", "4", "-b", "127.0.0.1:8080", "app:app" ]
+CMD [ "gunicorn", "-w", "4", "-b", "0.0.0.0:8080", "app:app" ]
 EXPOSE 8080
