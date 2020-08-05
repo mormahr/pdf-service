@@ -7,7 +7,7 @@ setup(
     include_package_data=True,
     zip_safe=False,
     install_requires=[
-        'flask',
-        'weasyprint',
+        'flask == 1.1.2',
+        'weasyprint == 51',
     ],
 )
