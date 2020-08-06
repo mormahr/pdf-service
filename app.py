@@ -1,7 +1,9 @@
 from flask import Flask, request, make_response
 from weasyprint import HTML
+from elasticapm.contrib.flask import ElasticAPM
 
 app = Flask(__name__)
+apm = ElasticAPM(app)
 
 
 @app.route('/generate', methods=['POST'])
