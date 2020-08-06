@@ -29,5 +29,11 @@ def make_pdf():
     return response
 
 
+@app.route('/health', methods=['GET'])
+def health():
+    response = make_response("Healthy")
+    return response
+
+
 if __name__ == '__main__':
     app.run()
