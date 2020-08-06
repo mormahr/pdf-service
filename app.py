@@ -12,6 +12,8 @@ def make_pdf():
     with elasticapm.capture_span('decode'):
         data = request.get_data(as_text=True)
 
+    elasticapm.label(html_size=len(data))
+
     with elasticapm.capture_span('parse'):
         html = HTML(string=data)
 
