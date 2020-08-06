@@ -23,6 +23,8 @@ def make_pdf():
     with elasticapm.capture_span('write-pdf'):
         pdf = doc.write_pdf()
 
+    elasticapm.label(pdf_size=len(pdf))
+
     response = make_response(pdf)
 
     response.headers.set('Content-Type', 'application/pdf')
