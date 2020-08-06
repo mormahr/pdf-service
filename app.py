@@ -1,16 +1,25 @@
 from flask import Flask, request, make_response
 from weasyprint import HTML
+from elasticapm.contrib.flask import ElasticAPM
+import elasticapm
 
 app = Flask(__name__)
+apm = ElasticAPM(app)
 
 
 @app.route('/generate', methods=['POST'])
 def make_pdf():
-    data = request.get_data(as_text=True)
-    print(data)
-    html = HTML(string=data)
-    doc = html.render()
-    pdf = doc.write_pdf()
+    with elasticapm.capture_span('decode'):
+        data = request.get_data(as_text=True)
+
+    with elasticapm.capture_span('parse'):
+        html = HTML(string=data)
+
+    with elasticapm.capture_span('render'):
+        doc = html.render()
+
+    with elasticapm.capture_span('write-pdf'):
+        pdf = doc.write_pdf()
 
     response = make_response(pdf)
 
