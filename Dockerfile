@@ -1,5 +1,7 @@
 FROM python:3.9.1-buster
 
+ARG GITHUB_SHA
+
 WORKDIR /usr/src/app
 
 RUN apt-get update \
@@ -23,8 +25,9 @@ RUN pip install --no-cache-dir -e .
 
 COPY . .
 
-ARG GITHUB_SHA
 ENV GITHUB_SHA=$GITHUB_SHA
+
+RUN echo $GITHUB_SHA
 
 CMD [ "gunicorn", "-w", "4", "-b", "0.0.0.0:8080", "app:app" ]
 EXPOSE 8080

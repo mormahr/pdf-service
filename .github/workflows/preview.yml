@@ -20,3 +20,4 @@ jobs:
           repository: mormahr/pdf-service
           tag_with_ref: true
           tag_with_sha: true
+          build_args: GITHUB_SHA=${{ github.sha }}
