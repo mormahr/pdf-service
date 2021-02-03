@@ -8,6 +8,7 @@ app = Flask(__name__)
 init(
     dsn=os.environ.get("SENTRY_DSN"),
     environment=os.environ.get("SENTRY_ENVIRONMENT", "development"),
+    release=os.environ.get("GITHUB_SHA"),
     integrations=[FlaskIntegration()],
     traces_sample_rate=1.0
 )

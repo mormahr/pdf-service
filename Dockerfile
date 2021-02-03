@@ -23,5 +23,8 @@ RUN pip install --no-cache-dir -e .
 
 COPY . .
 
+ARG GITHUB_SHA
+ENV GITHUB_SHA=$GITHUB_SHA
+
 CMD [ "gunicorn", "-w", "4", "-b", "0.0.0.0:8080", "app:app" ]
 EXPOSE 8080
