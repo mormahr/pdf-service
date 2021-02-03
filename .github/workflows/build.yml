@@ -22,3 +22,5 @@ jobs:
           tags: latest
           tag_with_ref: true
           tag_with_sha: true
+          build-args: |
+            GITHUB_SHA=${{ env.GITHUB_SHA }}
