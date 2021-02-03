@@ -1,29 +1,36 @@
+from sentry_sdk import init, start_span, set_context
 from flask import Flask, request, make_response
 from weasyprint import HTML
-from elasticapm.contrib.flask import ElasticAPM
-import elasticapm
+from sentry_sdk.integrations.flask import FlaskIntegration
+import os
 
 app = Flask(__name__)
-apm = ElasticAPM(app)
+init(
+    dsn=os.environ.get("SENTRY_DSN"),
+    environment=os.environ.get("SENTRY_ENVIRONMENT", "development"),
+    integrations=[FlaskIntegration()],
+    traces_sample_rate=1.0
+)
 
 
 @app.route('/generate', methods=['POST'])
-def make_pdf():
-    with elasticapm.capture_span('decode'):
+def generate_pdf():
+    with start_span(op='decode'):
         data = request.get_data(as_text=True)
 
-    elasticapm.label(html_size=len(data))
-
-    with elasticapm.capture_span('parse'):
+    with start_span(op='parse'):
         html = HTML(string=data)
 
-    with elasticapm.capture_span('render'):
+    with start_span(op='render'):
         doc = html.render()
 
-    with elasticapm.capture_span('write-pdf'):
+    with start_span(op='write-pdf'):
         pdf = doc.write_pdf()
 
-    elasticapm.label(pdf_size=len(pdf))
+    set_context("pdf-details", {
+        "html_size": len(data),
+        "pdf_size": len(pdf),
+    })
 
     response = make_response(pdf)
 

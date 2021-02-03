@@ -9,6 +9,6 @@ setup(
     install_requires=[
         'flask == 1.1.2',
         'weasyprint == 51',
-        'elastic-apm[flask] == 5.8.1'
+        'sentry-sdk[flask]'
     ],
 )
