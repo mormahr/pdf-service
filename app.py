@@ -9,6 +9,7 @@ init(
     dsn=os.environ.get("SENTRY_DSN"),
     environment=os.environ.get("SENTRY_ENVIRONMENT", "development"),
     release=os.environ.get("GITHUB_SHA"),
+    server_name=os.environ.get("HOST"),
     integrations=[FlaskIntegration()],
     traces_sample_rate=1.0
 )
