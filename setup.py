@@ -11,4 +11,10 @@ setup(
         'weasyprint==52.2',
         'sentry-sdk[flask]'
     ],
+    extras_require={
+        'dev': [
+            'pytest',
+            'pdfminer.six'
+        ]
+    }
 )

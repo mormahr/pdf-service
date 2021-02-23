@@ -1,0 +1,6 @@
+ARG GITHUB_SHA
+FROM mormahr/pdf-service:${GITHUB_SHA}
+
+RUN pip install --no-cache-dir -e '.[dev]'
+
+CMD [ "pytest" ]
