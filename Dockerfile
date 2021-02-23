@@ -30,5 +30,5 @@ ENV GITHUB_SHA=$GITHUB_SHA
 
 RUN echo $GITHUB_SHA
 
-CMD [ "gunicorn", "-w", "4", "-b", "0.0.0.0:8080", "app:app" ]
+CMD [ "gunicorn", "-w", "4", "-b", "0.0.0.0:8080", "pdf_service:pdf_service" ]
 EXPOSE 8080

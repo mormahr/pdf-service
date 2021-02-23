@@ -4,7 +4,7 @@ from weasyprint import HTML
 from sentry_sdk.integrations.flask import FlaskIntegration
 import os
 
-app = Flask(__name__)
+pdf_service = Flask(__name__)
 init(
     dsn=os.environ.get("SENTRY_DSN"),
     environment=os.environ.get("SENTRY_ENVIRONMENT", "development"),
@@ -15,7 +15,7 @@ init(
 )
 
 
-@app.route('/generate', methods=['POST'])
+@pdf_service.route('/generate', methods=['POST'])
 def generate_pdf():
     with start_span(op='decode'):
         data = request.get_data(as_text=True)
@@ -42,11 +42,11 @@ def generate_pdf():
     return response
 
 
-@app.route('/health', methods=['GET'])
+@pdf_service.route('/health', methods=['GET'])
 def health():
     response = make_response("Healthy")
     return response
 
 
 if __name__ == '__main__':
-    app.run()
+    pdf_service.run()
