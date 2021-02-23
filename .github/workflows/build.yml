@@ -1,4 +1,4 @@
-name: Build
+name: Build and Test
 on:
   push
 
@@ -17,7 +17,7 @@ jobs:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
           repository: mormahr/pdf-service
-          tags: latest
+          tags: latest, ${{ github.sha }}
           tag_with_ref: true
           tag_with_sha: true
           build_args: GITHUB_SHA=${{ github.sha }}
@@ -29,6 +29,34 @@ jobs:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
           repository: mormahr/pdf-service
+          tags: ${{ github.sha }}
           tag_with_ref: true
           tag_with_sha: true
           build_args: GITHUB_SHA=${{ github.sha }}
+
+  test:
+    runs-on: ubuntu-latest
+    needs:
+      - build
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - uses: docker/build-push-action@v1
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+          repository: pdf-service
+          build_args: GITHUB_SHA=${{ github.sha }}
+          push: false
+          tags: ${{ github.sha }}-test
+          dockerfile: Dockerfile.test
+
+      - name: Run tests
+        uses: addnab/docker-run-action@v2
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+          image: pdf-service:${{ github.sha }}-test
+          run: pytest
