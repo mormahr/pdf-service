@@ -14,6 +14,7 @@ setup(
     extras_require={
         'dev': [
             'pytest',
+            'pdfminer.six'
         ]
     }
 )
