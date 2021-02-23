@@ -21,7 +21,8 @@ COPY fonts /usr/local/share/fonts
 
 COPY setup.py .
 
-RUN pip install --no-cache-dir -e .
+# Install dev dependencies into main image for now
+RUN pip install --no-cache-dir -e '.[dev]'
 
 COPY . .
 
