@@ -9,6 +9,7 @@ setup(
     install_requires=[
         'flask == 1.1.2',
         'weasyprint==52.2',
+        'werkzeug',
         'sentry-sdk[flask]'
     ],
     extras_require={
