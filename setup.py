@@ -14,7 +14,10 @@ setup(
     extras_require={
         'dev': [
             'pytest',
-            'pdfminer.six'
+            'pdfminer.six',
+            'pdf2image == 1.14.0',
+            'diffimg == 0.3.0',
+            'fire',
         ]
     }
 )
