@@ -11,11 +11,12 @@ RUN apt-get update \
         libgdk-pixbuf2.0-0 \
         libffi-dev \
         shared-mime-info \
+        fonts-open-sans \
+        fonts-dejavu \
+        gsfonts \
     && rm -rf /var/lib/apt/lists/*
 
 RUN pip install gunicorn
-
-COPY fonts /usr/local/share/fonts
 
 COPY setup.py .
 
