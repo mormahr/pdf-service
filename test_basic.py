@@ -48,6 +48,6 @@ def test_matches_visually(client):
                                                          "expected "
 
     for expected, actual in zip(base.glob("basic_*.png"), paths):
-        percentage = diff(expected, actual) * 100
+        percentage = diff(expected, actual, diff_img_file=tempfile.mktemp(".png")) * 100
         assert percentage == 0.0, "Rasterized page differs from expected result by more than the " \
                                   "allowed threshold "

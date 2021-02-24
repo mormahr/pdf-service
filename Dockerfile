@@ -23,6 +23,9 @@ RUN pip install --no-cache-dir -e .
 
 COPY . .
 
+RUN useradd -m pdf_service_user
+USER pdf_service_user
+
 ARG GITHUB_SHA
 ENV GITHUB_SHA=$GITHUB_SHA
 RUN echo $GITHUB_SHA
