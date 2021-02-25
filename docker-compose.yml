@@ -4,6 +4,7 @@ services:
     build: .
     volumes:
       - "./tests:/usr/src/app/tests"
+      - "./test-data:/usr/src/app/test-data"
       - "./src:/usr/src/app/src"
       - "./.pytest_cache:/usr/src/app/.pytest_cache"
     command: python -m pytest
@@ -11,6 +12,7 @@ services:
     build: .
     volumes:
       - "./tests:/usr/src/app/tests"
+      - "./test-data:/usr/src/app/test-data"
       - "./src:/usr/src/app/src"
       - "./.pytest_cache:/usr/src/app/.pytest_cache"
     command: pytest-watch -p
