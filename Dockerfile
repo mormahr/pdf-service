@@ -17,11 +17,11 @@ RUN apt-get update \
         gsfonts \
     && rm -rf /var/lib/apt/lists/*
 
-RUN pip install gunicorn
+RUN pip install --no-cache-dir gunicorn
 
 COPY requirements.txt .
 
-RUN pip install -r requirements.txt
+RUN pip install --no-cache-dir -r requirements.txt
 
 COPY . .
 
