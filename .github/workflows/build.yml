@@ -48,4 +48,4 @@ jobs:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
           image: mormahr/pdf-service:${{ github.sha }}
-          run: pytest
+          run: python -m pytest

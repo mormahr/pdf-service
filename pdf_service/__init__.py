@@ -5,7 +5,7 @@ from sentry_sdk.integrations.flask import FlaskIntegration
 import os
 import werkzeug
 
-from errors import ForbiddenURLFetchError
+from .errors import ForbiddenURLFetchError
 
 
 pdf_service = Flask(__name__)
