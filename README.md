@@ -33,7 +33,7 @@ Images are continuously pushed to the `:latest` tag.
 ### Running
 
 - Run the development server with `python -m pdf_service`
-- Run tests with `./test.sh` or `./test-watch.sh`
+- Run tests with `./test` or `./test-watch`
 
 ### Visual tests with reference images
 
@@ -41,4 +41,4 @@ Images are continuously pushed to the `:latest` tag.
 A test suite will render the html files and will compare the output with the reference images to 
 ensure no changes slipped in.
 
-To update test-data or add new test cases run `./update-test-data.sh`.
+To update test-data or add new test cases run `./update-test-data`.
