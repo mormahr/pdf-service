@@ -5,7 +5,7 @@ services:
     volumes:
       - "./tests:/usr/src/app/tests"
       - "./test-data:/usr/src/app/test-data"
-      - "./src:/usr/src/app/src"
+      - "./pdf_service:/usr/src/app/pdf_service"
       - "./coverage:/usr/src/app/coverage"
       - "./.pytest_cache:/usr/src/app/.pytest_cache"
     command: |
