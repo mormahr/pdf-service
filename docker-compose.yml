@@ -1,0 +1,9 @@
+version: "3"
+services:
+  test:
+    build: .
+    volumes:
+      - "./tests:/usr/src/app/tests"
+      - "./src:/usr/src/app/src"
+      - "./.pytest_cache:/usr/src/app/.pytest_cache"
+    command: python -m pytest
