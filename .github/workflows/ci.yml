@@ -19,7 +19,6 @@ jobs:
           cache_froms: mormahr/pdf-service:latest
           tags: ${{ github.sha }}
           tag_with_ref: true
-          tag_with_sha: true
           build_args: GITHUB_SHA=${{ github.sha }}
 
   test:
