@@ -15,7 +15,7 @@ init(
     release=os.environ.get("SENTRY_RELEASE"),
     server_name=os.environ.get("HOST"),
     integrations=[FlaskIntegration()],
-    traces_sample_rate=1.0
+    traces_sample_rate=float(os.environ.get("SENTRY_TRACES_SAMPLE_RATE", "1.0")),
 )
 
 
