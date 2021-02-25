@@ -7,3 +7,10 @@ services:
       - "./src:/usr/src/app/src"
       - "./.pytest_cache:/usr/src/app/.pytest_cache"
     command: python -m pytest
+  test-watch:
+    build: .
+    volumes:
+      - "./tests:/usr/src/app/tests"
+      - "./src:/usr/src/app/src"
+      - "./.pytest_cache:/usr/src/app/.pytest_cache"
+    command: pytest-watch -p
