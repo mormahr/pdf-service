@@ -19,7 +19,7 @@ Images are continuously pushed to the `:latest` tag.
 - `SENTRY_RELEASE` This sets the release sent to Sentry. We set this to the current git SHA and you
   normally shouldn't need to overwrite it.
 - `SENTRY_TAG_*` Set a tag to a specific value for all transactions.
-  For example to set the tag `user` to `abc`, set the environment variable `SENTRY_TAG_TEST=abc`.
+  For example to set the tag `test` to `abc`, set the environment variable `SENTRY_TAG_TEST=abc`.
 
 ## Development
 
