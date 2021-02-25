@@ -10,6 +10,7 @@ services:
       - "./.pytest_cache:/usr/src/app/.pytest_cache"
     command: |
       python -m pytest
+        -rA
         --cov=pdf_service
         --cov-report term
         --cov-report html:coverage/cov_html
