@@ -21,7 +21,7 @@ services:
     volumes:
       - "./tests:/usr/src/app/tests"
       - "./test-data:/usr/src/app/test-data"
-      - "./src:/usr/src/app/src"
+      - "./pdf_service:/usr/src/app/pdf_service"
       - "./.pytest_cache:/usr/src/app/.pytest_cache"
     command: pytest-watch -p
   update-test-data:
@@ -29,5 +29,5 @@ services:
     volumes:
       - "./tests:/usr/src/app/tests"
       - "./test-data:/usr/src/app/test-data"
-      - "./src:/usr/src/app/src"
+      - "./pdf_service:/usr/src/app/pdf_service"
     command: python pdf_service/toolbox.py update
