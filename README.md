@@ -28,8 +28,9 @@ Images are continuously pushed to the `:latest` tag.
 - Install docker and docker-compose to run tests. 
   Tests run in docker to ensure render output doesn't differ based on platform.
   
-### Run tests
+### Running
 
+- Run the development server with `python -m pdf_service`
 - Run tests with `./test.sh` or `./test-watch.sh`
 
 ### Visual tests with reference images
