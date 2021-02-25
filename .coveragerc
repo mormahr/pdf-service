@@ -1,0 +1,4 @@
+[run]
+omit =
+    pdf_service/toolbox.py
+    pdf_service/__main__.py
