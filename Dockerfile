@@ -11,6 +11,7 @@ RUN apt-get update \
         libgdk-pixbuf2.0-0 \
         libffi-dev \
         shared-mime-info \
+        poppler-utils \
         fonts-open-sans \
         fonts-dejavu \
         gsfonts \
@@ -18,9 +19,9 @@ RUN apt-get update \
 
 RUN pip install gunicorn
 
-COPY setup.py .
+COPY requirements.txt .
 
-RUN pip install --no-cache-dir -e .
+RUN pip install -r requirements.txt
 
 COPY . .
 
@@ -28,8 +29,7 @@ RUN useradd -m pdf_service_user
 USER pdf_service_user
 
 ARG GITHUB_SHA
-ENV GITHUB_SHA=$GITHUB_SHA
-RUN echo $GITHUB_SHA
+ENV SENTRY_RELEASE=$GITHUB_SHA
 
 ENV WORKER_COUNT=4
 

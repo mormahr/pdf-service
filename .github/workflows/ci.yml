@@ -1,0 +1,57 @@
+name: CI
+on:
+  push
+
+jobs:
+  build:
+    runs-on: ubuntu-20.04
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Build and push Docker images
+        uses: docker/build-push-action@v1
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+          repository: mormahr/pdf-service
+          cache_froms: mormahr/pdf-service:latest
+          tags: ${{ github.sha }}
+          tag_with_ref: true
+          build_args: GITHUB_SHA=${{ github.sha }}
+
+  test:
+    runs-on: ubuntu-20.04
+    needs:
+      - build
+
+    steps:
+      - name: Run tests
+        uses: addnab/docker-run-action@v2
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+          image: mormahr/pdf-service:${{ github.sha }}
+          run: python -m pytest
+
+  release:
+    runs-on: ubuntu-20.04
+    needs:
+      - build
+      - test
+    if: github.ref == 'refs/heads/master'
+    steps:
+      - name: Login to docker hub
+        uses: actions-hub/docker/login@master
+        env:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
+      - name: Tag existing image as :latest
+        run: docker tag mormahr/pdf-service${{ github.sha }} mormahr/pdf-service:latest
+
+      - name: Push to docker hub :latest
+        uses: actions-hub/docker@master
+        with:
+          args: push mormahr/pdf-service:latest
