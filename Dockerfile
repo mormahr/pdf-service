@@ -25,7 +25,7 @@ RUN pip install -r requirements.txt
 
 COPY . .
 
-RUN useradd -m pdf_service_user
+RUN useradd -m pdf_service_user && chown pdf_service_user .
 USER pdf_service_user
 
 ARG GITHUB_SHA
