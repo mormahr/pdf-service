@@ -42,16 +42,14 @@ jobs:
       - test
     if: github.ref == 'refs/heads/master'
     steps:
-      - name: Login to docker hub
-        uses: actions-hub/docker/login@master
-        env:
-          DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
-          DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
-
-      - name: Tag existing image as :latest
-        run: docker tag mormahr/pdf-service:${{ github.sha }} mormahr/pdf-service:latest
-
-      - name: Push to docker hub :latest
-        uses: actions-hub/docker@master
+      - name: Login to Docker Hub
+        uses: docker/login-action@v1
         with:
-          args: push mormahr/pdf-service:latest
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
+      - name: Tag and push existing image as :latest
+        run: |
+          docker pull mormahr/pdf-service:${{ github.sha }}
+          docker tag mormahr/pdf-service:${{ github.sha }} mormahr/pdf-service:latest
+          docker push mormahr/pdf-service:latest
