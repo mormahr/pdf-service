@@ -16,3 +16,10 @@ services:
       - "./src:/usr/src/app/src"
       - "./.pytest_cache:/usr/src/app/.pytest_cache"
     command: pytest-watch -p
+  update-test-data:
+    build: .
+    volumes:
+      - "./tests:/usr/src/app/tests"
+      - "./test-data:/usr/src/app/test-data"
+      - "./src:/usr/src/app/src"
+    command: python pdf_service/toolbox.py update

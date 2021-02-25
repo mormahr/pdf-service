@@ -13,7 +13,7 @@ def create(name):
     :return:
     """
 
-    base = Path(__file__).parent.joinpath("test-data")
+    base = Path(__file__).parent.joinpath("../test-data")
     pdf_file = base.joinpath(name + ".pdf").absolute()
 
     html = HTML(filename=base.joinpath(name + ".html").absolute())
@@ -30,7 +30,19 @@ def create(name):
                        paths_only=True)
 
 
+def update():
+    """
+    Updates or creates all reference images from the html files.
+
+    :return:
+    """
+    base = Path(__file__).parent.joinpath("../test-data")
+    for input_file in base.glob("*.html"):
+        create(input_file.stem.replace(".html", ""))
+
+
 if __name__ == "__main__":
     fire.Fire({
-        "create": create
+        "create": create,
+        "update": update,
     })
