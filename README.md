@@ -7,6 +7,8 @@ Images are continuously pushed to the `:latest` tag.
 
 ### Environment variables
 
+- `WORKER_COUNT` (default: 4) Sets the worker pool size of the gunicorn server executing pdf_service.
+
 - `HOST` if the hostname isn't set on the container, pass it as an environment variable to identify
     the service in Sentry.
   
