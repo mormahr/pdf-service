@@ -19,6 +19,7 @@ setup(
             'pdf2image == 1.14.0',
             'diffimg == 0.3.0',
             'pytest-watch',
+            'pytest-cov',
             'fire',
         ]
     }
