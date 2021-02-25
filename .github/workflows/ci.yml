@@ -4,7 +4,7 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
 
     steps:
       - name: Checkout code
@@ -22,7 +22,7 @@ jobs:
           build_args: GITHUB_SHA=${{ github.sha }}
 
   test:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
     needs:
       - build
 
@@ -36,7 +36,7 @@ jobs:
           run: python -m pytest
 
   release:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
     needs:
       - build
       - test
