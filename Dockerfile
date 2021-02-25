@@ -11,6 +11,7 @@ RUN apt-get update \
         libgdk-pixbuf2.0-0 \
         libffi-dev \
         shared-mime-info \
+        poppler-utils \
         fonts-open-sans \
         fonts-dejavu \
         gsfonts \
