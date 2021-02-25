@@ -40,17 +40,6 @@ jobs:
           tags: ${{ steps.docker_meta.outputs.tags }}
           labels: ${{ steps.docker_meta.outputs.labels }}
 
-      - name: Build and push Docker images
-        uses: docker/build-push-action@v1
-        with:
-          username: ${{ secrets.DOCKER_USERNAME }}
-          password: ${{ secrets.DOCKER_PASSWORD }}
-          repository: mormahr/pdf-service
-          cache_froms: mormahr/pdf-service:latest
-          tags: ${{ github.sha }}
-          tag_with_ref: true
-          build_args: GITHUB_SHA=${{ github.sha }}
-
   test:
     runs-on: ubuntu-20.04
     needs:
