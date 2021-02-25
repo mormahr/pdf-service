@@ -1,4 +1,4 @@
-from sentry_sdk import init, start_span, set_context, add_breadcrumb
+from sentry_sdk import init, start_span, set_context, add_breadcrumb, set_tag
 from flask import Flask, request, make_response
 from weasyprint import HTML
 from sentry_sdk.integrations.flask import FlaskIntegration
@@ -17,6 +17,11 @@ init(
     integrations=[FlaskIntegration()],
     traces_sample_rate=float(os.environ.get("SENTRY_TRACES_SAMPLE_RATE", "1.0")),
 )
+
+for k, v in os.environ.items():
+    if k.startswith("SENTRY_TAG"):
+        processed_key = k.replace("SENTRY_TAG_", "").lower()
+        set_tag(processed_key, v)
 
 
 @pdf_service.route('/generate', methods=['POST'])
