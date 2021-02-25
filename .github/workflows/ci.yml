@@ -45,8 +45,8 @@ jobs:
       - name: Login to docker hub
         uses: actions-hub/docker/login@master
         env:
-          username: ${{ secrets.DOCKER_USERNAME }}
-          password: ${{ secrets.DOCKER_PASSWORD }}
+          DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+          DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
 
       - name: Tag existing image as :latest
         run: docker tag mormahr/pdf-service${{ github.sha }} mormahr/pdf-service:latest
