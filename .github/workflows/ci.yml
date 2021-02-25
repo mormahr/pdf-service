@@ -49,7 +49,7 @@ jobs:
           DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
 
       - name: Tag existing image as :latest
-        run: docker tag mormahr/pdf-service${{ github.sha }} mormahr/pdf-service:latest
+        run: docker tag mormahr/pdf-service:${{ github.sha }} mormahr/pdf-service:latest
 
       - name: Push to docker hub :latest
         uses: actions-hub/docker@master
