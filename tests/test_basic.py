@@ -42,7 +42,7 @@ def test_matches_visually(client):
                                fmt="png",
                                paths_only=True)
 
-    base = Path(__file__).parent.joinpath("test-data")
+    base = Path(__file__).parent.joinpath("../test-data")
     original_files = base.glob("basic_*.png")
     assert sum(1 for _ in original_files) == len(paths), "Number of generated pages differs from " \
                                                          "expected "
