@@ -19,9 +19,9 @@ RUN apt-get update \
 
 RUN pip install gunicorn
 
-COPY setup.py .
+COPY requirements.txt .
 
-RUN pip install --no-cache-dir -e .
+RUN pip install -r requirements.txt
 
 COPY . .
 
