@@ -34,6 +34,10 @@ Images are continuously pushed to the `:latest` tag.
 
 - Run the development server with `python -m pdf_service`
 - Run tests with `./test` or `./test-watch`
+  - Tests are executed within docker, to ensure render results are identical to the containerized
+    version. The image contains external dependencies, but code and test files will be mounted from
+    the project source. If you want to rebuild the dev image add `--build` to the end of the
+    command. This will instruct `docker-compose` to rebuild the image.
 
 ### Visual tests with reference images
 
