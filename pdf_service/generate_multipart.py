@@ -1,17 +1,23 @@
-from flask import make_response, Response, request
+from typing import Optional
+
+from flask import make_response, request, Response
 from sentry_sdk import start_span, set_context
 from weasyprint import HTML
+from werkzeug.datastructures import FileStorage
+from werkzeug.exceptions import BadRequest
 
 from .URLFetchHandler import URLFetchHandler
 
 
-def generate_basic() -> Response:
+def generate_multipart() -> Response:
     with start_span(op='decode'):
-        data = request.get_data(as_text=True)
+        html_file: Optional[FileStorage] = request.files.get("index.html")
+        if html_file is None:
+            raise BadRequest("No index.html present")
 
     with URLFetchHandler(request.files) as url_fetcher:
         with start_span(op='parse'):
-            html = HTML(string=data, url_fetcher=url_fetcher)
+            html = HTML(file_obj=html_file, url_fetcher=url_fetcher)
 
         with start_span(op='render'):
             doc = html.render()
@@ -20,7 +26,6 @@ def generate_basic() -> Response:
         pdf = doc.write_pdf()
 
     set_context("pdf-details", {
-        "html_size": len(data),
         "pdf_size": len(pdf),
     })
 

@@ -1,5 +1,9 @@
+from typing import Optional
+
 import werkzeug
+from flask import request
 from sentry_sdk import add_breadcrumb
+from urllib.parse import urlparse
 
 from .errors import ForbiddenURLFetchError, URLFetcherCalledAfterExitException
 
@@ -23,9 +27,10 @@ class URLFetchHandler:
     >>>   doc = html.render()
     """
 
-    def __init__(self):
+    def __init__(self, files: Optional[werkzeug.datastructures.MultiDict] = None):
         self.url_errors = []
         self.closed = False
+        self.files = files
 
     def __enter__(self):
         return self
@@ -35,9 +40,26 @@ class URLFetchHandler:
         if len(self.url_errors) != 0:
             raise werkzeug.exceptions.Forbidden()
 
-    def __call__(self, url):
+    def __call__(self, url: str):
         if self.closed:
             raise URLFetcherCalledAfterExitException()
+
+        parsed = urlparse(url)
+        if not bool(parsed.netloc):
+            file = self.files.get(parsed.path.removeprefix('/')) if request.files is not None else None
+
+            if file is None:
+                error = werkzeug.exceptions.BadRequest(
+                    "Missing file %s required by html file" % parsed.path
+                )
+                add_breadcrumb(message="Failed to fetch URL (%s)" % url)
+                self.url_errors.append(error)
+                raise error
+            else:
+                return {
+                    'file_obj': file,
+                    'mime_type': file.content_type
+                }
 
         error = ForbiddenURLFetchError(url)
         add_breadcrumb(message="Refused to fetch URL (%s)" % url)

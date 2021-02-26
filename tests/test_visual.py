@@ -21,8 +21,21 @@ def resolve_all_tests():
 @pytest.mark.parametrize("name", resolve_all_tests())
 def test_matches_visually(client, name):
     base = Path(__file__).parent.joinpath("../test-data")
-    html = base.joinpath(name + ".html").read_text()
-    rv = client.post('/generate', data=html, content_type="application/json")
+
+    if base.joinpath(name).exists():
+        data = {
+            'index.html': (base.joinpath(name + ".html").open('rb'), 'index.html', 'text/html'),
+        }
+
+        for file in base.joinpath(name).iterdir():
+            data[file.name] = (file.open('rb'), file.name, 'image/png')
+
+        rv = client.post('/generate', data=data, content_type="multipart/form-data")
+    else:
+        html = base.joinpath(name + ".html").read_text()
+        rv = client.post('/generate', data=html, content_type="text/html")
+
+    assert 200 == rv.status_code
 
     temp = tempfile.mkdtemp()
     paths = convert_from_bytes(rv.data,
