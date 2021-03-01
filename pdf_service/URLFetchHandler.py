@@ -5,7 +5,7 @@ from flask import request
 from sentry_sdk import add_breadcrumb
 from urllib.parse import urlparse, ParseResult
 
-from .errors import ForbiddenURLFetchError, URLFetcherCalledAfterExitException
+from .errors import URLFetcherCalledAfterExitException
 
 
 class URLFetchHandler:
@@ -37,8 +37,10 @@ class URLFetchHandler:
 
     def __exit__(self, exc_type, exc_val, exc_tb):
         self.closed = True
-        if len(self.http_errors) != 0:
-            raise werkzeug.exceptions.Forbidden()
+        if len(self.http_errors) == 1:
+            raise self.http_errors[0]
+        elif len(self.http_errors) > 1:
+            raise werkzeug.exceptions.BadRequest(description="Multiple errors occurred")
 
     def __call__(self, url: str):
         if self.closed:
@@ -86,4 +88,6 @@ class URLFetchHandler:
 
     def _handle_external_fetch(self, url: str, parsed: ParseResult):
         add_breadcrumb(message="Refused to fetch URL", data={'url': url})
-        raise ForbiddenURLFetchError(url)
+        raise werkzeug.exceptions.Forbidden(
+            description="Attempted to fetch forbidden url (%r)" % url
+        )

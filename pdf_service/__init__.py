@@ -5,7 +5,6 @@ import os
 
 from .generate import generate
 from .URLFetchHandler import URLFetchHandler
-from .errors import ForbiddenURLFetchError
 
 
 pdf_service = Flask(__name__)
