@@ -1,5 +1,44 @@
 # WeasyPrint in Docker
 
+## API
+
+### Basic "simple" API without asset support
+
+Make a `POST` request to `/generate` with the HTML file you want to render as the body.
+The response will be the PDF file.
+
+```sh
+curl \
+  -X POST \
+  -H "Content-Type: text/html" \
+  --data '<p>Hello World!</p>' \
+  https://pdf.example.com/generate \
+  > hello_world.pdf
+```
+
+### Multipart API
+
+Make a `POST` request to `/generate` with a `Content-Type` of `multipart/form-data`. Provide your
+HTML input as `index.html` and add any other required assets. The assets can be referenced _in the 
+HTML_ either as an absolute URL like `/image.png` or a relative one `image.png`. Relative URLs are
+resolved against `/`. **Omit the leading slash** for the `multipart/form-data` `name` attribute.
+
+```sh
+curl \
+  -F index.html=@index.html \
+  -F image.png=@image.png \
+  -F sub-path/image.png=@sub-path/image.png \
+  https://pdf.example.com/generate \
+  > hello_world.pdf
+```
+
+```html
+<!-- index.html -->
+<p>With an image:</p>
+<img src="/image.png" />
+<img src="/sub-path/image.png" />
+```
+
 ## Deployment
 
 The docker image is tagged as `mormahr/pdf-service`.
@@ -9,6 +48,9 @@ Images are continuously pushed to the `:latest` tag.
 
 It's not recommended allowing untrusted HTML input.
 Use trusted HTML templates and sanitize user inputs.
+
+Fetching of external assets is prohibited as of now. You can add internal assets with the multipart
+API.
 
 If your instance is exposed publicly, I recommend using a reverse proxy to terminate TLS connections
 and require authentication. You could use HTTP Basic Auth and then pass the pdf-service URL to your
