@@ -5,7 +5,7 @@ from flask import make_response, request, Response
 from sentry_sdk import start_span, set_context
 from weasyprint import HTML
 from werkzeug.datastructures import FileStorage
-from werkzeug.exceptions import BadRequest
+import werkzeug
 
 from .URLFetchHandler import URLFetchHandler
 
@@ -15,9 +15,9 @@ def generate() -> Response:
         if request.files:
             # Multipart
             html_file: Optional[FileStorage] = request.files.get("index.html")
-            html_size = html_file.content_length
             if html_file is None:
-                raise BadRequest("No index.html present")
+                raise werkzeug.exceptions.BadRequest(description="No index.html present")
+            html_size = html_file.content_length
 
         else:
             # Basic

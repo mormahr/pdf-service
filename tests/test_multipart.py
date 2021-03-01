@@ -74,3 +74,17 @@ def test_renders_relative_internal_resource(client: Client):
     rv = client.post('/generate', data=data)
     assert 200 == rv.status_code
     assert 'application/pdf' == rv.content_type
+
+
+def test_error_when_index_html_missing(client: Client):
+    data = {
+        'test.png': (
+            Path(__file__).parent.joinpath('../test-data/assets/test.png').open('rb'),
+            'test.png',
+            'image/png'
+        )
+    }
+
+    rv = client.post('/generate', data=data)
+    assert 400 == rv.status_code
+    assert b'No index.html present' in rv.data
