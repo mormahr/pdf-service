@@ -5,6 +5,7 @@ from sentry_sdk.integrations.flask import FlaskIntegration
 from sentry_sdk.integrations.logging import LoggingIntegration
 import os
 
+from .sentry_tags import apply_sentry_tags
 from .generate import generate
 from .URLFetchHandler import URLFetchHandler
 
@@ -23,10 +24,7 @@ init(
     traces_sample_rate=float(os.environ.get("SENTRY_TRACES_SAMPLE_RATE", "1.0")),
 )
 
-for k, v in os.environ.items():
-    if k.startswith("SENTRY_TAG"):
-        processed_key = k.replace("SENTRY_TAG_", "").lower()
-        set_tag(processed_key, v)
+apply_sentry_tags()
 
 
 @pdf_service.route('/generate', methods=['POST'])
