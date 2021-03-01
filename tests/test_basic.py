@@ -36,3 +36,4 @@ def test_error_when_internal_files_are_referenced(client):
     )
 
     assert 400 == rv.status_code
+    assert b'Referenced local file (test.png) in basic mode' in rv.data
