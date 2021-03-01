@@ -10,6 +10,7 @@ from .URLFetchHandler import URLFetchHandler
 def generate_basic() -> Response:
     with start_span(op='decode'):
         html_file = BytesIO(request.get_data())
+        html_size = html_file.getbuffer().nbytes
 
     with URLFetchHandler(request.files) as url_fetcher:
         with start_span(op='parse'):
@@ -22,7 +23,7 @@ def generate_basic() -> Response:
         pdf = doc.write_pdf()
 
     set_context("pdf-details", {
-        "html_size": html_file.getbuffer().nbytes,
+        "html_size": html_size,
         "pdf_size": len(pdf),
     })
 

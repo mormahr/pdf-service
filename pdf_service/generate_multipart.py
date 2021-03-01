@@ -12,6 +12,7 @@ from .URLFetchHandler import URLFetchHandler
 def generate_multipart() -> Response:
     with start_span(op='decode'):
         html_file: Optional[FileStorage] = request.files.get("index.html")
+        html_size = html_file.content_length
         if html_file is None:
             raise BadRequest("No index.html present")
 
@@ -26,7 +27,7 @@ def generate_multipart() -> Response:
         pdf = doc.write_pdf()
 
     set_context("pdf-details", {
-        "html_size": html_file.content_length,
+        "html_size": html_size,
         "pdf_size": len(pdf),
     })
 
