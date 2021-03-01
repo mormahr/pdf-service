@@ -26,3 +26,13 @@ def test_contains_text(client):
     text = high_level.extract_text(file)
 
     assert 'Test text in PDF' in text
+
+
+def test_error_when_internal_files_are_referenced(client):
+    rv = client.post(
+        '/generate',
+        data="<p>Test text in PDF <img src='test.png' /></p>",
+        content_type="text/html"
+    )
+
+    assert 400 == rv.status_code

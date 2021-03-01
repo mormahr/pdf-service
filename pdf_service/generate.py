@@ -26,7 +26,11 @@ def generate() -> Response:
 
     with URLFetchHandler(request.files) as url_fetcher:
         with start_span(op='parse'):
-            html = HTML(file_obj=html_file, url_fetcher=url_fetcher)
+            html = HTML(
+                file_obj=html_file,
+                base_url='/',
+                url_fetcher=url_fetcher
+            )
 
         with start_span(op='render'):
             doc = html.render()
