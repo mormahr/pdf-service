@@ -3,8 +3,7 @@ from flask import Flask, request, make_response
 from sentry_sdk.integrations.flask import FlaskIntegration
 import os
 
-from .generate_multipart import generate_multipart
-from .generate_basic import generate_basic
+from .generate import generate
 from .URLFetchHandler import URLFetchHandler
 from .errors import ForbiddenURLFetchError
 
@@ -27,10 +26,7 @@ for k, v in os.environ.items():
 
 @pdf_service.route('/generate', methods=['POST'])
 def generate_pdf():
-    if request.files:
-        return generate_multipart()
-    else:
-        return generate_basic()
+    return generate()
 
 
 @pdf_service.route('/health', methods=['GET'])
