@@ -70,7 +70,7 @@ class URLFetchHandler:
 
     def _handle_internal_fetch(self, url: str, parsed: ParseResult):
         file = self.files.get(
-            parsed.path.removeprefix('/')) if request.files is not None else None
+            parsed.path.removeprefix('/')) if self.files is not None else None
 
         if file is None:
             add_breadcrumb(message="Failed to fetch internal URL", data={'url': url})
