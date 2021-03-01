@@ -73,7 +73,7 @@ class URLFetchHandler:
     def _handle_internal_fetch(self, url: str, parsed: ParseResult):
         filename = parsed.path.removeprefix('/')
 
-        if self.files is None:
+        if self.files is None or len(self.files) == 0:
             raise werkzeug.exceptions.BadRequest(
                 'Referenced local file (%s) in basic mode' % filename
             )
@@ -83,7 +83,7 @@ class URLFetchHandler:
         if file is None:
             add_breadcrumb(message="Failed to fetch internal URL", data={'url': url})
             raise werkzeug.exceptions.BadRequest(
-                "Missing file %s required by html file" % parsed.path
+                "Missing file (%s) required by html file" % filename
             )
         else:
             add_breadcrumb(message="Fetched internal URL", data={'url': url})

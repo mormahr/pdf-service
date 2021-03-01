@@ -20,6 +20,7 @@ setup(
             'diffimg == 0.3.0',
             'pytest-watch',
             'pytest-cov',
+            'pytest-mock',
             'fire',
         ]
     }

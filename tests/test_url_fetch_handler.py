@@ -17,7 +17,13 @@ def test_exits_without_throwing_if_fetcher_isnt_called():
 def test_throws_if_fetcher_throws():
     with pytest.raises(werkzeug.exceptions.Forbidden):
         with URLFetchHandler() as url_fetcher:
-            url_fetcher("https://example.com/test.png")
+            # Swallow exception just like weasyprint
+            # noinspection PyBroadException
+            try:
+                url_fetcher("https://example.com/test.png")
+            except:
+                pass
+
 
 
 def test_throws_when_called_after_exit():
@@ -27,6 +33,23 @@ def test_throws_when_called_after_exit():
 
     with pytest.raises(URLFetcherCalledAfterExitException):
         handler("https://example.com/test.png")
+
+
+def test_throws_bad_request_when_multiple_errors_happened():
+    with pytest.raises(werkzeug.exceptions.BadRequest):
+        with URLFetchHandler() as url_fetcher:
+            # Swallow exception just like weasyprint
+            # noinspection PyBroadException
+            try:
+                url_fetcher("https://example.com/test.png")
+            except:
+                pass
+
+            # noinspection PyBroadException
+            try:
+                url_fetcher("test.png")
+            except:
+                pass
 
 
 @pytest.fixture()
