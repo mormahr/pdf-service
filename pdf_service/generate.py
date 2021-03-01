@@ -12,7 +12,7 @@ from .URLFetchHandler import URLFetchHandler
 
 def generate() -> Response:
     with start_span(op='decode'):
-        if request.files:
+        if request.content_type.startswith("multipart/form-data"):
             # Multipart
             html_file: Optional[FileStorage] = request.files.get("index.html")
             if html_file is None:
