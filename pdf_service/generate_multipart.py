@@ -26,6 +26,7 @@ def generate_multipart() -> Response:
         pdf = doc.write_pdf()
 
     set_context("pdf-details", {
+        "html_size": html_file.content_length,
         "pdf_size": len(pdf),
     })
 
