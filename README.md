@@ -26,7 +26,7 @@ Images are continuously pushed to the `:latest` tag.
 ### Setup the development environment
 
 - Setup python venv 
-- `pip install -e '.[dev]'`
+- `pip install -r requirements.txt` (or: `pip install -e '.[dev]'`)
 - Install docker and docker-compose to run tests. 
   Tests run in docker to ensure render output doesn't differ based on platform.
   
