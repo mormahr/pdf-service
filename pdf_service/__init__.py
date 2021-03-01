@@ -40,5 +40,5 @@ def health():
     return response
 
 
-if __name__ == '__main__':
+if __name__ == '__main__': # pragma: no cover
     pdf_service.run()
