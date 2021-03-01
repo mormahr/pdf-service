@@ -3,7 +3,7 @@ from typing import Optional
 import werkzeug
 from flask import request
 from sentry_sdk import add_breadcrumb
-from urllib.parse import urlparse
+from urllib.parse import urlparse, ParseResult
 
 from .errors import ForbiddenURLFetchError, URLFetcherCalledAfterExitException
 
@@ -62,20 +62,28 @@ class URLFetchHandler:
         """
         parsed = urlparse(url)
         if not bool(parsed.netloc):
-            file = self.files.get(
-                parsed.path.removeprefix('/')) if request.files is not None else None
+            # No domain name -> internal fetch
+            return self._handle_internal_fetch(url, parsed)
+        else:
+            # External
+            return self._handle_external_fetch(url, parsed)
 
-            if file is None:
-                add_breadcrumb(message="Failed to fetch internal URL", data={'url': url})
-                raise werkzeug.exceptions.BadRequest(
-                    "Missing file %s required by html file" % parsed.path
-                )
-            else:
-                add_breadcrumb(message="Fetched internal URL", data={'url': url})
-                return {
-                    'file_obj': file,
-                    'mime_type': file.content_type
-                }
+    def _handle_internal_fetch(self, url: str, parsed: ParseResult):
+        file = self.files.get(
+            parsed.path.removeprefix('/')) if request.files is not None else None
 
+        if file is None:
+            add_breadcrumb(message="Failed to fetch internal URL", data={'url': url})
+            raise werkzeug.exceptions.BadRequest(
+                "Missing file %s required by html file" % parsed.path
+            )
+        else:
+            add_breadcrumb(message="Fetched internal URL", data={'url': url})
+            return {
+                'file_obj': file,
+                'mime_type': file.content_type
+            }
+
+    def _handle_external_fetch(self, url: str, parsed: ParseResult):
         add_breadcrumb(message="Refused to fetch URL", data={'url': url})
         raise ForbiddenURLFetchError(url)
