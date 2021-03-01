@@ -17,7 +17,7 @@ class URLFetchHandler:
     It's important to note that the `url_fetcher` is stored by HTML and will then be used by the
      `.render` method, so the render call has to be inside the with, too.
 
-    :raise: werkzeug.exceptions.Forbidden() if a forbidden URL was requested.
+    :raise: Throws exceptions as defined in `_handle_fetch`
 
     :example:
     >>> from weasyprint import HTML
@@ -28,7 +28,7 @@ class URLFetchHandler:
     """
 
     def __init__(self, files: Optional[werkzeug.datastructures.MultiDict] = None):
-        self.url_errors = []
+        self.http_errors = []
         self.closed = False
         self.files = files
 
@@ -37,31 +37,45 @@ class URLFetchHandler:
 
     def __exit__(self, exc_type, exc_val, exc_tb):
         self.closed = True
-        if len(self.url_errors) != 0:
+        if len(self.http_errors) != 0:
             raise werkzeug.exceptions.Forbidden()
 
     def __call__(self, url: str):
         if self.closed:
             raise URLFetcherCalledAfterExitException()
 
+        try:
+            return self._handle_fetch(url)
+        except werkzeug.exceptions.HTTPException as error:
+            self.http_errors.append(error)
+            raise error
+
+    def _handle_fetch(self, url: str):
+        """
+        Handle the fetching of a single URL
+
+        :param url: URL to fetch
+        :return: Info dict about resolved url
+
+        :raise: :class:`werkzeug.exceptions.BadRequest`, if file wasn't found internally
+        :raise: :class:`ForbiddenURLFetchError`, if file can't be fetched because it's not allowed
+        """
         parsed = urlparse(url)
         if not bool(parsed.netloc):
-            file = self.files.get(parsed.path.removeprefix('/')) if request.files is not None else None
+            file = self.files.get(
+                parsed.path.removeprefix('/')) if request.files is not None else None
 
             if file is None:
-                error = werkzeug.exceptions.BadRequest(
+                add_breadcrumb(message="Failed to fetch internal URL", data={'url': url})
+                raise werkzeug.exceptions.BadRequest(
                     "Missing file %s required by html file" % parsed.path
                 )
-                add_breadcrumb(message="Failed to fetch URL (%s)" % url)
-                self.url_errors.append(error)
-                raise error
             else:
+                add_breadcrumb(message="Fetched internal URL", data={'url': url})
                 return {
                     'file_obj': file,
                     'mime_type': file.content_type
                 }
 
-        error = ForbiddenURLFetchError(url)
-        add_breadcrumb(message="Refused to fetch URL (%s)" % url)
-        self.url_errors.append(error)
-        raise error
+        add_breadcrumb(message="Refused to fetch URL", data={'url': url})
+        raise ForbiddenURLFetchError(url)
