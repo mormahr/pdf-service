@@ -83,7 +83,7 @@ class URLFetchHandler:
         if file is None:
             add_breadcrumb(message="Failed to fetch internal URL", data={'url': url})
             raise werkzeug.exceptions.BadRequest(
-                "Missing file %s required by html file" % parsed.path
+                "Missing file (%s) required by html file" % filename
             )
         else:
             add_breadcrumb(message="Fetched internal URL", data={'url': url})

@@ -88,3 +88,17 @@ def test_error_when_index_html_missing(client: Client):
     rv = client.post('/generate', data=data)
     assert 400 == rv.status_code
     assert b'No index.html present' in rv.data
+
+
+def test_error_when_internal_ressource_is_missing(client: Client):
+    data = {
+        'index.html': (
+            BytesIO(bytes('<p>Test <img src="test.png"/></p>', 'utf8')),
+            'index.html',
+            'text/html'
+        ),
+    }
+
+    rv = client.post('/generate', data=data)
+    assert 400 == rv.status_code
+    assert b'Missing file (test.png) required by html file' in rv.data
