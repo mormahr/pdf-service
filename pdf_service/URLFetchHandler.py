@@ -71,8 +71,14 @@ class URLFetchHandler:
             return self._handle_external_fetch(url, parsed)
 
     def _handle_internal_fetch(self, url: str, parsed: ParseResult):
-        file = self.files.get(
-            parsed.path.removeprefix('/')) if self.files is not None else None
+        filename = parsed.path.removeprefix('/')
+
+        if self.files is None:
+            raise werkzeug.exceptions.BadRequest(
+                'Referenced local file (%s) in basic mode' % filename
+            )
+
+        file = self.files.get(filename)
 
         if file is None:
             add_breadcrumb(message="Failed to fetch internal URL", data={'url': url})
