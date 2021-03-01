@@ -5,6 +5,17 @@
 The docker image is tagged as `mormahr/pdf-service`.
 Images are continuously pushed to the `:latest` tag.
 
+### Security
+
+It's not recommended allowing untrusted HTML input.
+Use trusted HTML templates and sanitize user inputs.
+
+If your instance is exposed publicly, I recommend using a reverse proxy to terminate TLS connections
+and require authentication. You could use HTTP Basic Auth and then pass the pdf-service URL to your
+client software via an environment variable. This way auth information can be embedded like this:
+`https://API_USER:API_TOKEN@pdf.example.com/generate`, where `API_USER` and `API_TOKEN` are the
+credentials you set up in the reverse proxy.
+
 ### Environment variables
 
 - `WORKER_COUNT` (default: 4) Sets the worker pool size of the gunicorn server executing pdf_service.
