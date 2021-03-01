@@ -1,9 +1,9 @@
-from sentry_sdk import init, start_span, set_context, set_tag
+from sentry_sdk import init, set_tag
 from flask import Flask, request, make_response
-from weasyprint import HTML
 from sentry_sdk.integrations.flask import FlaskIntegration
 import os
 
+from .generate import generate
 from .URLFetchHandler import URLFetchHandler
 from .errors import ForbiddenURLFetchError
 
@@ -26,30 +26,7 @@ for k, v in os.environ.items():
 
 @pdf_service.route('/generate', methods=['POST'])
 def generate_pdf():
-    with start_span(op='decode'):
-        data = request.get_data(as_text=True)
-
-    with URLFetchHandler() as url_fetcher:
-        with start_span(op='parse'):
-            html = HTML(string=data, url_fetcher=url_fetcher)
-
-        with start_span(op='render'):
-            doc = html.render()
-
-    with start_span(op='write-pdf'):
-        pdf = doc.write_pdf()
-
-    set_context("pdf-details", {
-        "html_size": len(data),
-        "pdf_size": len(pdf),
-    })
-
-    response = make_response(pdf)
-
-    response.headers.set('Content-Type', 'application/pdf')
-    response.headers.set('Content-Disposition', 'attachment; filename="generated.pdf"')
-
-    return response
+    return generate()
 
 
 @pdf_service.route('/health', methods=['GET'])

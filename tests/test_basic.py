@@ -14,13 +14,13 @@ def client():
 
 
 def test_responds(client):
-    rv = client.post('/generate', data="<p>Test text in PDF</p>", content_type="application/json")
+    rv = client.post('/generate', data="<p>Test text in PDF</p>", content_type="text/html")
     assert 200 == rv.status_code
     assert 'application/pdf' == rv.content_type
 
 
 def test_contains_text(client):
-    rv = client.post('/generate', data="<p>Test text in PDF</p>", content_type="application/json")
+    rv = client.post('/generate', data="<p>Test text in PDF</p>", content_type="text/html")
 
     file = BytesIO(rv.data)
     text = high_level.extract_text(file)

@@ -1,5 +1,9 @@
+from io import BytesIO
+
 import pytest
 import werkzeug
+from werkzeug.datastructures import MultiDict, FileStorage
+from pdf_service import pdf_service
 
 from pdf_service import URLFetchHandler
 from pdf_service.errors import URLFetcherCalledAfterExitException
@@ -23,3 +27,35 @@ def test_throws_when_called_after_exit():
 
     with pytest.raises(URLFetcherCalledAfterExitException):
         handler("https://example.com/test.png")
+
+
+@pytest.fixture()
+def request_context():
+    with pdf_service.test_request_context():
+        yield
+
+
+@pytest.fixture()
+def files_dict(request_context):
+    yield MultiDict({
+        'test.png': FileStorage(
+            BytesIO(b'test img'),
+            filename="test.png",
+            name="test.png",
+            content_type="image/png"
+        )
+    })
+
+
+def test_resolves_local_url_with_leading_slash(files_dict):
+    with URLFetchHandler(files_dict) as url_fetcher:
+        result = url_fetcher("/test.png")
+        assert result is not None
+        assert result['file_obj'] == files_dict.get('test.png')
+
+
+def test_resolves_local_url_without_leading_slash(files_dict):
+    with URLFetchHandler(files_dict) as url_fetcher:
+        result = url_fetcher("test.png")
+        assert result is not None
+        assert result['file_obj'] == files_dict.get('test.png')

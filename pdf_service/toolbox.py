@@ -16,7 +16,12 @@ def create(name):
     base = Path(__file__).parent.joinpath("../test-data")
     pdf_file = base.joinpath(name + ".pdf").absolute()
 
-    html = HTML(filename=base.joinpath(name + ".html").absolute())
+    def url_fetcher(url: str):
+        return {
+            'file_obj': base.joinpath(name).joinpath(url.removeprefix("file:///")).open('rb')
+        }
+
+    html = HTML(filename=base.joinpath(name + ".html").absolute(), url_fetcher=url_fetcher)
     doc = html.render()
 
     pdf = doc.write_pdf()
