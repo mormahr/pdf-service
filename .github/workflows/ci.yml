@@ -46,6 +46,14 @@ jobs:
       - build
 
     steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Prepare coverage
+        run: |
+          mkdir coverage
+          chmod 777 coverage
+
       - name: Run tests
         uses: addnab/docker-run-action@v2
         with:
