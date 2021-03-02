@@ -1,6 +1,9 @@
 # pdf-service
 **WeasyPrint in Docker**
 
+[![codecov.io](https://codecov.io/github/mormahr/pdf-service/coverage.svg?branch=main)]
+(https://codecov.io/github/mormahr/pdf-service?branch=main)
+
 ## API
 
 ### Basic "simple" API without asset support
