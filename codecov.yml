@@ -1,0 +1,11 @@
+codecov:
+  range: "90...100"
+  round: down
+  precision: 2
+  strict_yaml_branch: main
+  status:
+    project:
+      default:
+        informational: true
+  comment:
+    require_changes: true
