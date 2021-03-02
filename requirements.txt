@@ -23,7 +23,7 @@ MarkupSafe==1.1.1
 packaging==20.9
 pdf2image==1.14.0
 pdfminer.six==20201018
-Pillow==8.1.0
+Pillow==8.1.1
 pluggy==0.13.1
 py==1.10.0
 pycparser==2.20
