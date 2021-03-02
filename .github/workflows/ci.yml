@@ -52,7 +52,25 @@ jobs:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
           image: mormahr/pdf-service:${{ github.sha }}
-          run: python -m pytest
+          options: -v ${{ github.workspace }}/coverage:/usr/src/app/coverage
+          run: |
+            python -m pytest \
+              -rA \
+              --cov=pdf_service \
+              --cov-report term \
+              --cov-report html:coverage/cov_html \
+              --cov-report xml:coverage/cov.xml \
+              --cov-report annotate:coverage/cov_annotate
+
+      - name: Upload coverage report
+        uses: codecov/codecov-action@v1
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          files: ${{ github.workspace }}/coverage/cov.xml
+          flags: unit
+          name: unit
+          fail_ci_if_error: true
+          verbose: true
 
   release:
     runs-on: ubuntu-20.04
