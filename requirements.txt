@@ -10,7 +10,7 @@ colorama==0.4.4
 coverage==5.5
 cryptography==3.4.6
 cssselect2==0.4.1
-defusedxml==0.7.0
+defusedxml==0.7.1
 diffimg==0.3.0
 docopt==0.6.2
 fire==0.4.0
