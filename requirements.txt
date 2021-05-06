@@ -1,4 +1,4 @@
-attrs==20.3.0
+attrs==21.1.0
 blinker==1.4
 cairocffi==1.2.0
 CairoSVG==2.5.2
