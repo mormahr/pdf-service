@@ -1,7 +1,6 @@
 from typing import Optional
 
 import werkzeug
-from flask import request
 from sentry_sdk import add_breadcrumb
 from urllib.parse import urlparse, ParseResult
 
