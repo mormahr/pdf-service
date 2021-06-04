@@ -1,6 +1,6 @@
 import logging
-from sentry_sdk import init, set_tag
-from flask import Flask, request, make_response
+from sentry_sdk import init
+from flask import Flask, make_response
 from sentry_sdk.integrations.flask import FlaskIntegration
 from sentry_sdk.integrations.logging import LoggingIntegration
 import os

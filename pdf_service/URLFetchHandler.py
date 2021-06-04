@@ -1,7 +1,7 @@
 from typing import Optional
 
-import werkzeug
-from flask import request
+from werkzeug.datastructures import MultiDict
+from werkzeug.exceptions import BadRequest, Forbidden, HTTPException
 from sentry_sdk import add_breadcrumb
 from urllib.parse import urlparse, ParseResult
 
@@ -27,7 +27,7 @@ class URLFetchHandler:
     >>>   doc = html.render()
     """
 
-    def __init__(self, files: Optional[werkzeug.datastructures.MultiDict] = None):
+    def __init__(self, files: Optional[MultiDict] = None):
         self.http_errors = []
         self.closed = False
         self.files = files
@@ -40,7 +40,7 @@ class URLFetchHandler:
         if len(self.http_errors) == 1:
             raise self.http_errors[0]
         elif len(self.http_errors) > 1:
-            raise werkzeug.exceptions.BadRequest(description="Multiple errors occurred")
+            raise BadRequest(description="Multiple errors occurred")
 
     def __call__(self, url: str):
         if self.closed:
@@ -48,7 +48,7 @@ class URLFetchHandler:
 
         try:
             return self._handle_fetch(url)
-        except werkzeug.exceptions.HTTPException as error:
+        except HTTPException as error:
             self.http_errors.append(error)
             raise error
 
@@ -74,7 +74,7 @@ class URLFetchHandler:
         filename = parsed.path.removeprefix('/')
 
         if self.files is None or len(self.files) == 0:
-            raise werkzeug.exceptions.BadRequest(
+            raise BadRequest(
                 'Referenced local file (%s) in basic mode' % filename
             )
 
@@ -82,7 +82,7 @@ class URLFetchHandler:
 
         if file is None:
             add_breadcrumb(message="Failed to fetch internal URL", data={'url': url})
-            raise werkzeug.exceptions.BadRequest(
+            raise BadRequest(
                 "Missing file (%s) required by html file" % filename
             )
         else:
@@ -94,6 +94,6 @@ class URLFetchHandler:
 
     def _handle_external_fetch(self, url: str, parsed: ParseResult):
         add_breadcrumb(message="Refused to fetch URL", data={'url': url})
-        raise werkzeug.exceptions.Forbidden(
+        raise Forbidden(
             description="Attempted to fetch forbidden url (%r)" % url
         )
