@@ -19,7 +19,7 @@ html5lib==1.1
 iniconfig==1.1.1
 itsdangerous==2.0.1
 Jinja2==3.0.1
-MarkupSafe==1.1.1
+MarkupSafe==2.0.1
 packaging==20.9
 pdf2image==1.15.1
 pdfminer.six==20201018
