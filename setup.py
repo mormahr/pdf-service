@@ -7,8 +7,8 @@ setup(
     include_package_data=True,
     zip_safe=False,
     install_requires=[
-        'flask == 1.1.2',
-        'weasyprint==52.2',
+        'flask',
+        'weasyprint',
         'werkzeug',
         'sentry-sdk[flask]'
     ],
@@ -16,8 +16,8 @@ setup(
         'dev': [
             'pytest',
             'pdfminer.six',
-            'pdf2image == 1.14.0',
-            'diffimg == 0.3.0',
+            'pdf2image',
+            'diffimg',
             'pytest-watch',
             'pytest-cov',
             'pytest-mock',
