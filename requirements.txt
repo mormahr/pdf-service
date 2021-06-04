@@ -43,4 +43,4 @@ urllib3==1.26.4
 watchdog==2.1.2
 WeasyPrint==52.5
 webencodings==0.5.1
-Werkzeug==1.0.1
+Werkzeug==2.0.1
