@@ -5,7 +5,7 @@ CairoSVG==2.5.2
 certifi==2020.12.5
 cffi==1.14.5
 chardet==4.0.0
-click==7.1.2
+click==8.0.1
 colorama==0.4.4
 coverage==5.5
 cryptography==3.4.7
@@ -14,12 +14,12 @@ defusedxml==0.7.1
 diffimg==0.3.0
 docopt==0.6.2
 fire==0.4.0
-Flask==1.1.4
+Flask==2.0.1
 html5lib==1.1
 iniconfig==1.1.1
-itsdangerous==1.1.0
-Jinja2==2.11.3
-MarkupSafe==1.1.1
+itsdangerous==2.0.1
+Jinja2==3.0.1
+MarkupSafe==2.0.1
 packaging==20.9
 pdf2image==1.15.1
 pdfminer.six==20201018
@@ -43,4 +43,4 @@ urllib3==1.26.5
 watchdog==2.1.2
 WeasyPrint==52.5
 webencodings==0.5.1
-Werkzeug==1.0.1
+Werkzeug==2.0.1
