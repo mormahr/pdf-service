@@ -39,7 +39,7 @@ sortedcontainers==2.4.0
 termcolor==1.1.0
 tinycss2==1.1.0
 toml==0.10.2
-urllib3==1.26.5
+urllib3==1.26.6
 watchdog==2.1.2
 WeasyPrint==52.5
 webencodings==0.5.1
