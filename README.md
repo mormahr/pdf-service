@@ -3,6 +3,12 @@
 
 [![codecov.io](https://codecov.io/github/mormahr/pdf-service/coverage.svg?branch=main)](https://codecov.io/github/mormahr/pdf-service?branch=main)
 
+A dockerized HTTP service, that generates PDF files from HTML using [Weasyprint][weasyprint].
+The primary use-case is generation of documents from developer controlled templates, such as
+invoices. It is not meant as a general webpage to PDF converter. The service expects input HTML and
+other resources to be safe and doesn't do any hardening or sandboxing that would be required for
+arbitrary inputs. Please consult the [security][#security] section of this document.
+
 ## API
 
 ### Basic "simple" API without asset support
@@ -71,8 +77,8 @@ This section is how I understood the licensing requirements and is not legal adv
 It's not recommended allowing untrusted HTML input.
 Use trusted HTML templates and sanitize user inputs.
 
-Fetching of external assets is prohibited as of now. You can add internal assets with the multipart
-API.
+Fetching of external assets is prohibited as of now. You can add internal assets with the [multipart
+API](#multipart-API).
 
 If your instance is exposed publicly, I recommend using a reverse proxy to terminate TLS connections
 and require authentication. You could use HTTP Basic Auth and then pass the pdf-service URL to your
@@ -122,5 +128,6 @@ ensure no changes slipped in.
 
 To update test-data or add new test cases run `./update-test-data`.
 
+[weasyprint]: https://weasyprint.org
 [container-os-article-1]: https://opensource.com/article/18/1/containers-gpl-and-copyleft
 [stackoverflow-aGPL-modified]: https://softwareengineering.stackexchange.com/questions/107883/agpl-what-you-can-do-and-what-you-cant#comment202259_107931
