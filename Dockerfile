@@ -1,21 +1,21 @@
-FROM python:3.9.6-bullseye
+FROM python:3.9.6-alpine3.14
 
 WORKDIR /usr/src/app
 
-RUN apt-get update \
-    && apt-get install -y \
-        build-essential \
-        libcairo2 \
-        libpango-1.0-0 \
-        libpangocairo-1.0-0 \
-        libgdk-pixbuf2.0-0 \
-        libffi-dev \
-        shared-mime-info \
-        poppler-utils \
-        fonts-open-sans \
-        fonts-dejavu \
-        gsfonts \
-    && rm -rf /var/lib/apt/lists/*
+RUN apk add --no-cache \
+      gcc \
+      musl-dev \
+      jpeg-dev \
+      zlib-dev \
+      libffi-dev \
+      cairo-dev \
+      pango-dev \
+      gdk-pixbuf \
+      poppler-dev \
+      shared-mime-info \
+      ttf-opensans \
+      ttf-dejavu \
+      ghostscript-fonts
 
 RUN pip install --no-cache-dir gunicorn
 
