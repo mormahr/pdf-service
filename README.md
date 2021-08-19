@@ -47,6 +47,25 @@ curl \
 The docker image is tagged as `mormahr/pdf-service`.
 Images are continuously pushed to the `:latest` tag.
 
+### Licensing
+
+The service code is licensed under the MIT license. Weasyprint, the underlying PDF generator
+library, is licensed under the BSD license. The prebuilt container image contains a variety of
+licenses, including GPLv2 and GPLv3 code.
+
+Currently, the image also contains AGPLv3 code, through the use of poppler for visual integration
+tests. Poppler is not involved in generating PDFs, it's  just included for the integration testing
+suite. I hope to remove the testing dependencies from the production image in the future.
+
+After consulting [an article][container-os-article-1] about GPL licensing in containers, I think
+this should not  cause issues for stacks that use this container image in a closed source context,
+as long as the image is [not modified][stackoverflow-aGPL-modified]. If it is modified, you should
+look further into licensing requirements, although adding fonts shouldn't be a problem. From
+my understanding, the affero clause is not triggered here, since the user is not interacting with 
+poppler at all.
+
+This section is how I understood the licensing requirements and is not legal advice.
+
 ### Security
 
 It's not recommended allowing untrusted HTML input.
@@ -102,3 +121,6 @@ A test suite will render the html files and will compare the output with the ref
 ensure no changes slipped in.
 
 To update test-data or add new test cases run `./update-test-data`.
+
+[container-os-article-1]: https://opensource.com/article/18/1/containers-gpl-and-copyleft
+[stackoverflow-aGPL-modified]: https://softwareengineering.stackexchange.com/questions/107883/agpl-what-you-can-do-and-what-you-cant#comment202259_107931
