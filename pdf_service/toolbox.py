@@ -41,7 +41,7 @@ def update():
 
     :return:
     """
-    base = Path(__file__).parent.joinpath("../test-data")
+    base = Path(__file__).parent.joinpath("./test-data")
     for input_file in base.glob("*.html"):
         create(input_file.stem.replace(".html", ""))
 
