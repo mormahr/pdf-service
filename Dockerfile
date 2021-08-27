@@ -4,9 +4,11 @@ WORKDIR /usr/src/app
 
 RUN apk add --no-cache \
       gcc \
+      g++ \
       musl-dev \
       python3-dev \
       jpeg-dev \
+      openjpeg-dev \
       zlib-dev \
       libffi-dev \
       openssl-dev \
