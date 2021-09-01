@@ -65,6 +65,7 @@ jobs:
           cache-to: type=inline
           tags: ${{ steps.docker_meta.outputs.tags }}
           labels: ${{ steps.docker_meta.outputs.labels }}
+          target: production
 
   test:
     runs-on: ubuntu-20.04
@@ -76,6 +77,14 @@ jobs:
       options: --user root
 
     steps:
+      - name: Install dev dependencies
+        run: |
+          cd /usr/src/app
+          apk add --no-cache \
+                poppler-utils \
+                poppler-dev
+          pip3 install --no-cache-dir -r requirements-dev.txt
+
       - name: Run tests
         run: |
           cd /usr/src/app
