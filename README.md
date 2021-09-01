@@ -7,7 +7,7 @@
   <img alt="Docker Image Size" src="https://img.shields.io/docker/image-size/mormahr/pdf-service" />
 </p>
 
-A dockerized HTTP service, that generates PDF files from HTML using [Weasyprint][weasyprint].
+A dockerized HTTP service, that generates PDF files from HTML using [WeasyPrint][weasyprint].
 The primary use-case is generation of documents from developer controlled templates, such as
 invoices. It is not meant as a general webpage to PDF converter. The service expects input HTML and
 other resources to be safe and doesn't do any hardening or sandboxing that would be required for
@@ -91,7 +91,7 @@ version.
 
 ### Licensing
 
-The service code is licensed under the MIT license. Weasyprint, the underlying PDF generator
+The service code is licensed under the MIT license. WeasyPrint, the underlying PDF generator
 library, is licensed under the BSD license. The prebuilt container image contains a variety of
 licenses, including GPLv2 and GPLv3 code.
 
