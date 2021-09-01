@@ -11,7 +11,28 @@ A dockerized HTTP service, that generates PDF files from HTML using [Weasyprint]
 The primary use-case is generation of documents from developer controlled templates, such as
 invoices. It is not meant as a general webpage to PDF converter. The service expects input HTML and
 other resources to be safe and doesn't do any hardening or sandboxing that would be required for
-arbitrary inputs. Please consult the [security][#security] section of this document.
+arbitrary inputs. Please consult the [security](#security) section of this document.
+
+## Usage
+
+Run the docker image `mormahr/pdf-service` and `POST` the HTML to `/generate` on port 8080.
+
+Consult the [API](#API) section for details about supported features and how to use them.
+See the [deployment](#deployment) and [security](#security) sections for best practices in
+production environments.
+
+```sh
+docker run --rm -d --name pdf -p 8080:8080 mormahr/pdf-service
+
+curl \
+  -X POST \
+  -H "Content-Type: text/html" \
+  --data '<p>Hello World!</p>' \
+  http://localhost:8080/generate \
+  > hello_world.pdf
+
+docker stop pdf
+```
 
 ## API
 
