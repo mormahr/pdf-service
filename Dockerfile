@@ -12,7 +12,6 @@ RUN apk add --no-cache \
       zlib-dev \
       libffi-dev \
       openssl-dev \
-      cargo \
       pango-dev \
       gdk-pixbuf \
       shared-mime-info \
@@ -44,6 +43,7 @@ ENV SENTRY_RELEASE=$GITHUB_SHA
 FROM builder AS testing
 # Testing stage only for local testing, edit ci.yml test job accordingly.
 RUN apk add --no-cache \
+      cargo \
       poppler-utils \
       poppler-dev
 
