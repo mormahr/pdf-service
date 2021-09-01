@@ -33,5 +33,7 @@ ENV SENTRY_RELEASE=$GITHUB_SHA
 
 ENV WORKER_COUNT=4
 
+HEALTHCHECK --interval=2s --timeout=2s --retries=5 --start-period=2s CMD curl --fail http://localhost:8080/health || exit 1
+
 CMD gunicorn -w $WORKER_COUNT -b 0.0.0.0:8080 pdf_service:pdf_service
 EXPOSE 8080
