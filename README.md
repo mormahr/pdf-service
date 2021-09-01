@@ -4,7 +4,7 @@
   <a href="https://codecov.io/github/mormahr/pdf-service?branch=main"><img alt="codecov.io" src="https://codecov.io/github/mormahr/pdf-service/coverage.svg?branch=main"/></a>
   <img alt="Docker Image Version" src="https://img.shields.io/docker/v/mormahr/pdf-service?sort=semver" />
   <img alt="Docker Pulls" src="https://img.shields.io/docker/pulls/mormahr/pdf-service" />
-  <img alt="Docker Image Size" src="https://img.shields.io/docker/image-size/mormahr/pdf-service" />
+  <img alt="Docker Image Size" src="https://img.shields.io/docker/image-size/mormahr/pdf-service?sort=semver" />
 </p>
 
 A dockerized HTTP service, that generates PDF files from HTML using [WeasyPrint][weasyprint].
