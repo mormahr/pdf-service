@@ -21,6 +21,8 @@ RUN apk add --no-cache \
       ttf-opensans \
       ttf-dejavu \
       ghostscript-fonts \
+      # Used as the entrypoint
+      tini \
       # curl is needed for the status check
       curl
 
@@ -44,5 +46,5 @@ ENV WORKER_COUNT=4
 
 HEALTHCHECK --interval=2s --timeout=2s --retries=5 --start-period=2s CMD curl --fail http://localhost:8080/health || exit 1
 
-CMD exec gunicorn -w $WORKER_COUNT -t 0 -b 0.0.0.0:8080 pdf_service:pdf_service
+CMD tini gunicorn -w $WORKER_COUNT -t 0 -b 0.0.0.0:8080 pdf_service:pdf_service
 EXPOSE 8080
