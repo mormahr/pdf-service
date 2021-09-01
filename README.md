@@ -102,6 +102,11 @@ credentials you set up in the reverse proxy.
 - `SENTRY_TAG_*` Set a tag to a specific value for all transactions.
   For example to set the tag `test` to `abc`, set the environment variable `SENTRY_TAG_TEST=abc`.
 
+### Health check
+
+The service has a `/health` endpoint that will respond with a `200` status code if the service is
+running. This endpoint is also configured as a docker [`HEALTHCHECK`][docker-healthcheck].
+
 ## Development
 
 ### Setup the development environment
@@ -131,3 +136,4 @@ To update test-data or add new test cases run `./update-test-data`.
 [weasyprint]: https://weasyprint.org
 [container-os-article-1]: https://opensource.com/article/18/1/containers-gpl-and-copyleft
 [stackoverflow-aGPL-modified]: https://softwareengineering.stackexchange.com/questions/107883/agpl-what-you-can-do-and-what-you-cant#comment202259_107931
+[docker-healthcheck]: https://docs.docker.com/engine/reference/builder/#healthcheck
