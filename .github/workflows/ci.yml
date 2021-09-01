@@ -83,6 +83,9 @@ jobs:
           name: Generated test images
           path: /usr/src/app/test-data/*.png
 
+      - name: Install bash for codecov uploader
+        run: apk add bash
+
       - name: Upload coverage report
         uses: codecov/codecov-action@v1
         with:
