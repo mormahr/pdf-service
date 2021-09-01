@@ -82,6 +82,7 @@ jobs:
           cd /usr/src/app
           apk add --no-cache \
                 cargo \
+                gdk-pixbuf \
                 poppler-utils \
                 poppler-dev
           pip3 install --no-cache-dir -r requirements-dev.txt

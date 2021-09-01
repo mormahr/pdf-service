@@ -3,18 +3,15 @@ FROM python:3.9.7-alpine3.14 AS builder
 WORKDIR /usr/src/app
 
 RUN apk add --no-cache \
+      # WeasyPrint
+      py3-pip \
+      py3-pillow \
+      py3-cffi \
+      py3-brotli \
       gcc \
-      g++ \
       musl-dev \
       python3-dev \
-      jpeg-dev \
-      openjpeg-dev \
-      zlib-dev \
-      libffi-dev \
-      openssl-dev \
-      pango-dev \
-      gdk-pixbuf \
-      shared-mime-info \
+      pango \
       # fonts
       ttf-opensans \
       ttf-dejavu \
@@ -43,6 +40,7 @@ ENV SENTRY_RELEASE=$GITHUB_SHA
 FROM builder AS testing
 # Testing stage only for local testing, edit ci.yml test job accordingly.
 RUN apk add --no-cache \
+      gdk-pixbuf \
       cargo \
       poppler-utils \
       poppler-dev
