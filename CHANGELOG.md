@@ -1,8 +1,26 @@
 # Changelog
 
-## [Unreleased]
+## [Unreleased] [2.0.0] - ?
+**WeasyPrint: v53.2**
+
+Summary: WeasyPrint v53, alpine and much smaller image.
+
+### Breaking Changes
+- Updated to WeasyPrint v53 (includes visual changes)
+    [#115](https://github.com/mormahr/pdf-service/pull/115)
+- Switched base image from debian buster to alpine v3.14 (includes visual changes)
+    [#119](https://github.com/mormahr/pdf-service/pull/119)
+
+### Improvements
+- Reduced Docker image size from 363.98 MB (v1.1) to 176.67 MB (v2)
+    [#136](https://github.com/mormahr/pdf-service/pull/136)
+    [#137](https://github.com/mormahr/pdf-service/pull/137)
+    [#141](https://github.com/mormahr/pdf-service/pull/141)
+- Using [tini](https://github.com/krallin/tini) as the entrypoint
+    [#134](https://github.com/mormahr/pdf-service/pull/134)
 
 ## [1.1.0] - 2021-09-01
+**WeasyPrint: v52.5**
 
 ### Improvements
 - Docker `HEALTHCHECK`
@@ -20,5 +38,6 @@
   ([jpxd](https://github.com/jpxd))
 
 ## [1.0.0] - 2021-08-19
+**WeasyPrint: v52.5**
 
 Initial public release 🎉
