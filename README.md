@@ -1,14 +1,38 @@
-# pdf-service
-**WeasyPrint in Docker**
-
-[![codecov.io](https://codecov.io/github/mormahr/pdf-service/coverage.svg?branch=main)](https://codecov.io/github/mormahr/pdf-service?branch=main)
-![Docker image version](https://img.shields.io/docker/v/mormahr/pdf-service?sort=semver)
+<h1 align="center">WeasyPrint in Docker</h1>
+<p align="center"><strong>Stateless HTTP API to convert HTML to PDF</strong></p>
+<p align="center">
+  <a href="https://codecov.io/github/mormahr/pdf-service?branch=main"><img alt="codecov.io" src="https://codecov.io/github/mormahr/pdf-service/coverage.svg?branch=main"/></a>
+  <img alt="Docker Image Version" src="https://img.shields.io/docker/v/mormahr/pdf-service?sort=semver" />
+  <img alt="Docker Pulls" src="https://img.shields.io/docker/pulls/mormahr/pdf-service" />
+  <img alt="Docker Image Size" src="https://img.shields.io/docker/image-size/mormahr/pdf-service" />
+</p>
 
 A dockerized HTTP service, that generates PDF files from HTML using [Weasyprint][weasyprint].
 The primary use-case is generation of documents from developer controlled templates, such as
 invoices. It is not meant as a general webpage to PDF converter. The service expects input HTML and
 other resources to be safe and doesn't do any hardening or sandboxing that would be required for
-arbitrary inputs. Please consult the [security][#security] section of this document.
+arbitrary inputs. Please consult the [security](#security) section of this document.
+
+## Usage
+
+Run the docker image `mormahr/pdf-service` and `POST` the HTML to `/generate` on port 8080.
+
+Consult the [API](#API) section for details about supported features and how to use them.
+See the [deployment](#deployment) section ([security](#security) in particular) for best practices in
+production environments.
+
+```sh
+docker run --rm -d --name pdf -p 8080:8080 mormahr/pdf-service
+
+curl \
+  -X POST \
+  -H "Content-Type: text/html" \
+  --data '<p>Hello World!</p>' \
+  http://localhost:8080/generate \
+  > hello_world.pdf
+
+docker stop pdf
+```
 
 ## API
 
@@ -51,8 +75,19 @@ curl \
 
 ## Deployment
 
+### Versioning
+
 The docker image is tagged as `mormahr/pdf-service`.
-Images are continuously pushed to the `:latest` tag.
+
+We follow [semver][semver] as well as possible, including visual changes when we detect them.
+As such, we also tag release versions like `:1.1.0`. We support semver major (`:1`) or minor (`:1.1`) tags that use the latest minor or patch
+release version.
+
+Images of the current development version are continuously pushed to the `:edge` tag.
+We strongly recommend that you use a release version instead of `:edge`.
+
+**Warning:** The `:latest` tag is currently the same as `:edge`, instead of the latest released
+version.
 
 ### Licensing
 
@@ -135,6 +170,7 @@ ensure no changes slipped in.
 To update test-data or add new test cases run `./update-test-data`.
 
 [weasyprint]: https://weasyprint.org
+[semver]: https://semver.org
 [container-os-article-1]: https://opensource.com/article/18/1/containers-gpl-and-copyleft
 [stackoverflow-aGPL-modified]: https://softwareengineering.stackexchange.com/questions/107883/agpl-what-you-can-do-and-what-you-cant#comment202259_107931
 [docker-healthcheck]: https://docs.docker.com/engine/reference/builder/#healthcheck
