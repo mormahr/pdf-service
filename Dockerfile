@@ -11,7 +11,6 @@ RUN apk add --no-cache \
       libffi-dev \
       openssl-dev \
       cargo \
-      cairo-dev \
       pango-dev \
       gdk-pixbuf \
       shared-mime-info \
