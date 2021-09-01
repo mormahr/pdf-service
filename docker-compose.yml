@@ -1,7 +1,9 @@
-version: "3"
+version: "3.4"
 services:
   test:
-    build: .
+    build:
+      context: .
+      target: testing
     volumes:
       - "./tests:/usr/src/app/tests"
       - "./test-data:/usr/src/app/test-data"
@@ -17,7 +19,9 @@ services:
         --cov-report xml:coverage/cov.xml
         --cov-report annotate:coverage/cov_annotate
   test-watch:
-    build: .
+    build:
+      context: .
+      target: testing
     volumes:
       - "./tests:/usr/src/app/tests"
       - "./test-data:/usr/src/app/test-data"
@@ -25,7 +29,9 @@ services:
       - "./.pytest_cache:/usr/src/app/.pytest_cache"
     command: pytest-watch -p
   update-test-data:
-    build: .
+    build:
+      context: .
+      target: testing
     volumes:
       - "./tests:/usr/src/app/tests"
       - "./test-data:/usr/src/app/test-data"
