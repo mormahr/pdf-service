@@ -18,7 +18,7 @@ arbitrary inputs. Please consult the [security](#security) section of this docum
 Run the docker image `mormahr/pdf-service` and `POST` the HTML to `/generate` on port 8080.
 
 Consult the [API](#API) section for details about supported features and how to use them.
-See the [deployment](#deployment) and [security](#security) sections for best practices in
+See the [deployment](#deployment) section ([security](#security) in particular) for best practices in
 production environments.
 
 ```sh
@@ -75,8 +75,19 @@ curl \
 
 ## Deployment
 
+### Versioning
+
 The docker image is tagged as `mormahr/pdf-service`.
-Images are continuously pushed to the `:latest` tag.
+
+We follow [semver][semver] as well as possible, including visual changes when we detect them.
+As such, we also tag release versions like `:1.1.0`. We support semver major (`:1`) or minor (`:1.1`) tags that use the latest minor or patch
+release version.
+
+Images of the current development version are continuously pushed to the `:edge` tag.
+We strongly recommend that you use a release version instead of `:edge`.
+
+**Warning:** The `:latest` tag is currently the same as `:edge`, instead of the latest released
+version.
 
 ### Licensing
 
@@ -159,6 +170,7 @@ ensure no changes slipped in.
 To update test-data or add new test cases run `./update-test-data`.
 
 [weasyprint]: https://weasyprint.org
+[semver]: https://semver.org
 [container-os-article-1]: https://opensource.com/article/18/1/containers-gpl-and-copyleft
 [stackoverflow-aGPL-modified]: https://softwareengineering.stackexchange.com/questions/107883/agpl-what-you-can-do-and-what-you-cant#comment202259_107931
 [docker-healthcheck]: https://docs.docker.com/engine/reference/builder/#healthcheck
