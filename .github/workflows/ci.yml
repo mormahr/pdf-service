@@ -96,11 +96,26 @@ jobs:
           fail_ci_if_error: true
           verbose: true
 
+  test-e2e:
+    runs-on: ubuntu-20.04
+    needs:
+      - build
+    services:
+      pdf:
+        image: mormahr/pdf-service:sha-${{ github.sha }}
+        ports:
+          - 8080:8080
+
+    steps:
+      - name: "Generate basic PDF without returning invalid status code"
+        run: curl -f --data "<p>Hello World</p>" http://localhost:8080/generate > test.pdf
+
   release:
     runs-on: ubuntu-20.04
     needs:
       - build
       - test
+      - test-e2e
     if: github.ref == 'refs/heads/main'
     steps:
       - name: Login to Docker Hub
