@@ -45,13 +45,23 @@ jobs:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
 
+      - name: Extract branch name
+        shell: bash
+        run: |
+          BRANCH=${GITHUB_REF#refs/heads/}
+          SAFE_BRANCH=${BRANCH//\//_}
+          echo "##[set-output name=branch;]$(echo $SAFE_BRANCH)"
+        id: extract_branch
+
       - name: Build and push
         uses: docker/build-push-action@v2
         with:
           context: .
           push: ${{ github.event_name != 'pull_request' }}
           build-args: GITHUB_SHA=${{ github.sha }}
-          cache-from: type=registry,ref=mormahr/pdf-service:latest
+          cache-from: |
+            type=registry,ref=mormahr/pdf-service:latest
+            type=registry,ref=mormahr/pdf-service:${{ steps.extract_branch.outputs.branch }}
           cache-to: type=inline
           tags: ${{ steps.docker_meta.outputs.tags }}
           labels: ${{ steps.docker_meta.outputs.labels }}
