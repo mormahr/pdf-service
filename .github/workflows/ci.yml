@@ -39,14 +39,14 @@ jobs:
           labels: |
             org.opencontainers.image.vendor=Moritz Mahringer
 
-      - name: Docker meta
+      - name: Docker meta (testing)
         id: docker_meta_testing
         uses: docker/metadata-action@v3
         with:
           images: mormahr/pdf-service
           flavor: |
             latest=false
-            suffix=testing
+            suffix=-testing
           tags: |
             type=ref,event=branch
             type=ref,event=pr

@@ -30,16 +30,6 @@ COPY requirements.txt .
 
 RUN pip install --no-cache-dir -r requirements.txt
 
-COPY . .
-
-RUN addgroup -S pdf_service_group && \
-    adduser --uid 1001 -S pdf_service_user -G pdf_service_group && \
-    chown pdf_service_user .
-USER pdf_service_user
-
-ARG GITHUB_SHA
-ENV SENTRY_RELEASE=$GITHUB_SHA
-
 FROM builder AS testing
 # Testing stage only for local testing, edit ci.yml test job accordingly.
 RUN apk add --no-cache \
@@ -47,10 +37,30 @@ RUN apk add --no-cache \
       poppler-utils \
       poppler-dev
 
+ADD requirements-dev.txt .
+
 RUN pip install --no-cache-dir -r requirements-dev.txt
+
+RUN addgroup -S pdf_service_group && \
+    adduser --uid 1001 -S pdf_service_user -G pdf_service_group && \
+    chown pdf_service_user .
+USER pdf_service_user
+
+COPY . .
+
+ARG GITHUB_SHA
+ENV SENTRY_RELEASE=$GITHUB_SHA
 
 FROM builder AS production
 # Named stage so it can be optimized in the future. (Stage name is referenced by CI build script.)
+
+
+RUN addgroup -S pdf_service_group && \
+    adduser --uid 1001 -S pdf_service_user -G pdf_service_group && \
+    chown pdf_service_user .
+USER pdf_service_user
+
+COPY . .
 
 ARG GITHUB_SHA
 ENV SENTRY_RELEASE=$GITHUB_SHA
