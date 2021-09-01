@@ -77,6 +77,12 @@ jobs:
             --cov-report xml:coverage/cov.xml \
             --cov-report annotate:coverage/cov_annotate
 
+      - uses: actions/upload-artifact@v2
+        if: ${{ failure() }}
+        with:
+          name: Generated test images
+          path: /usr/src/app/test-data/*.png
+
       - name: Upload coverage report
         uses: codecov/codecov-action@v1
         with:
