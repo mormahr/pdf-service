@@ -41,9 +41,17 @@ def update():
 
     :return:
     """
-    base = Path(__file__).parent.joinpath("./test-data")
+    base = Path(__file__).parent.parent.joinpath("./test-data")
     for input_file in base.glob("*.html"):
-        create(input_file.stem.replace(".html", ""))
+        case = input_file.stem
+        print("Processing test case:", case)
+
+        for result in base.glob(case + "*.png"):
+            print("Removing old result:", result.stem)
+            result.unlink()
+
+        print("Updating test case:", case)
+        create(case)
 
 
 if __name__ == "__main__":
