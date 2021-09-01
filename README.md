@@ -2,6 +2,7 @@
 **WeasyPrint in Docker**
 
 [![codecov.io](https://codecov.io/github/mormahr/pdf-service/coverage.svg?branch=main)](https://codecov.io/github/mormahr/pdf-service?branch=main)
+![Docker image version](https://img.shields.io/docker/v/mormahr/pdf-service?sort=semver)
 
 A dockerized HTTP service, that generates PDF files from HTML using [Weasyprint][weasyprint].
 The primary use-case is generation of documents from developer controlled templates, such as
