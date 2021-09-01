@@ -39,6 +39,22 @@ jobs:
           labels: |
             org.opencontainers.image.vendor=Moritz Mahringer
 
+      - name: Docker meta
+        id: docker_meta_testing
+        uses: docker/metadata-action@v3
+        with:
+          images: mormahr/pdf-service
+          flavor: |
+            latest=false
+            suffix=testing
+          tags: |
+            type=ref,event=branch
+            type=ref,event=pr
+            type=edge,branch=main
+            type=sha,format=long
+          labels: |
+            org.opencontainers.image.vendor=Moritz Mahringer
+
       - name: Login to DockerHub
         uses: docker/login-action@v1
         with:
@@ -67,25 +83,30 @@ jobs:
           labels: ${{ steps.docker_meta.outputs.labels }}
           target: production
 
+      - name: Build and push (testing image)
+        uses: docker/build-push-action@v2
+        with:
+          context: .
+          push: ${{ github.event_name != 'pull_request' }}
+          build-args: GITHUB_SHA=${{ github.sha }}
+          cache-from: |
+            type=registry,ref=mormahr/pdf-service:latest
+            type=registry,ref=mormahr/pdf-service:${{ steps.extract_branch.outputs.branch }}
+          cache-to: type=inline
+          tags: ${{ steps.docker_meta_testing.outputs.tags }}
+          labels: ${{ steps.docker_meta_testing.outputs.labels }}
+          target: testing
+
   test:
     runs-on: ubuntu-20.04
     needs:
       - build
 
     container:
-      image: mormahr/pdf-service:sha-${{ github.sha }}
+      image: mormahr/pdf-service:sha-${{ github.sha }}-testing
       options: --user root
 
     steps:
-      - name: Install dev dependencies
-        run: |
-          cd /usr/src/app
-          apk add --no-cache \
-                cargo \
-                poppler-utils \
-                poppler-dev
-          pip3 install --no-cache-dir -r requirements-dev.txt
-
       - name: Run tests
         run: |
           cd /usr/src/app
