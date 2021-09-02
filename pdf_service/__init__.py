@@ -7,7 +7,6 @@ import os
 
 from .sentry_tags import apply_sentry_tags
 from .generate import generate
-from .URLFetchHandler import URLFetchHandler
 
 
 pdf_service = Flask(__name__)

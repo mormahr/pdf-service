@@ -5,7 +5,7 @@ import werkzeug
 from werkzeug.datastructures import MultiDict, FileStorage
 from pdf_service import pdf_service
 
-from pdf_service import URLFetchHandler
+from pdf_service.URLFetchHandler import URLFetchHandler
 from pdf_service.errors import URLFetcherCalledAfterExitException
 
 
@@ -23,7 +23,6 @@ def test_throws_if_fetcher_throws():
                 url_fetcher("https://example.com/test.png")
             except:
                 pass
-
 
 
 def test_throws_when_called_after_exit():
