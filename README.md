@@ -25,7 +25,6 @@ production environments.
 docker run --rm -d --name pdf -p 8080:8080 mormahr/pdf-service
 
 curl \
-  -X POST \
   -H "Content-Type: text/html" \
   --data '<p>Hello World!</p>' \
   http://localhost:8080/generate \
@@ -43,7 +42,6 @@ The response will be the PDF file.
 
 ```sh
 curl \
-  -X POST \
   -H "Content-Type: text/html" \
   --data '<p>Hello World!</p>' \
   https://pdf.example.com/generate \
