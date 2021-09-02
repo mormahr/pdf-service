@@ -10,6 +10,8 @@ Summary: WeasyPrint v53, alpine and much smaller image.
     [#115](https://github.com/mormahr/pdf-service/pull/115)
 - Switched base image from debian buster to alpine v3.14 (includes visual changes)
     [#119](https://github.com/mormahr/pdf-service/pull/119)
+- Enable [HTML presentational hints][whatwg-presentational-hints] [option in WeasyPrint][weasyprint-presentational-hints]
+    [#156](https://github.com/mormahr/pdf-service/pull/156)
 
 ### Improvements
 - Reduced Docker image size from 363.98 MB (v1.1) to 176.67 MB (v2)
@@ -41,3 +43,6 @@ Summary: WeasyPrint v53, alpine and much smaller image.
 **WeasyPrint: v52.5**
 
 Initial public release 🎉
+
+[whatwg-presentational-hints]: https://html.spec.whatwg.org/multipage/rendering.html#the-css-user-agent-style-sheet-and-presentational-hints
+[weasyprint-presentational-hints]: https://doc.courtbouillon.org/weasyprint/stable/api_reference.html#weasyprint.HTML.render

@@ -33,7 +33,7 @@ def generate() -> Response:
             )
 
         with start_span(op='render'):
-            doc = html.render()
+            doc = html.render(presentational_hints=True)
 
     with start_span(op='write-pdf'):
         pdf = doc.write_pdf()
