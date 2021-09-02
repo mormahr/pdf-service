@@ -145,7 +145,7 @@ running. This endpoint is also configured as a docker [`HEALTHCHECK`][docker-hea
 ### Setup the development environment
 
 - Setup python venv 
-- `pip install -r requirements.txt` (or: `pip install -e '.[dev]'`)
+- `pip install -r requirements.txt -r requirements-dev.txt` (or: `pip install -e '.[dev]'`)
 - Install docker and docker-compose to run tests. 
   Tests run in docker to ensure render output doesn't differ based on platform.
   
