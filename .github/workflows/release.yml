@@ -1,0 +1,46 @@
+name: Release
+on:
+  push:
+    tags:
+      - 'v**'
+
+jobs:
+  tag:
+    runs-on: ubuntu-20.04
+    needs:
+      - build
+      - test
+      - test-e2e
+    steps:
+      - name: Login to Docker Hub
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
+      - name: Docker meta
+        id: docker_meta
+        uses: docker/metadata-action@v3
+        with:
+          images: mormahr/pdf-service
+          flavor: |
+            latest=true
+          tags: |
+            type=semver,pattern={{version}}
+            type=semver,pattern={{major}}.{{minor}}.{{patch}}
+            type=semver,pattern={{major}}.{{minor}}
+            type=semver,pattern={{major}}
+            type=edge,branch=main
+            type=sha,format=long
+
+      - name: Tag
+        env:
+          INPUT_TAGS: ${{ steps.docker_meta.outputs.tags }}
+        run: |
+          docker pull mormahr/pdf-service:sha-${{ github.sha }}
+          echo "$INPUT_TAGS" | while read -r tag
+          do
+            echo "$tag"
+            docker tag mormahr/pdf-service:sha-${{ github.sha }} "$tag"
+            docker push "$tag"
+          done
