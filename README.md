@@ -86,9 +86,6 @@ release version.
 Images of the current development version are continuously pushed to the `:edge` tag.
 We strongly recommend that you use a release version instead of `:edge`.
 
-**Warning:** The `:latest` tag is currently the same as `:edge`, instead of the latest released
-version.
-
 ### Licensing
 
 The service code is licensed under the MIT license. WeasyPrint, the underlying PDF generator
