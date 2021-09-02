@@ -239,6 +239,22 @@ jobs:
           name: visual-diffs
           path: e2e/diffs
 
+  licences:
+    runs-on: ubuntu-20.04
+    needs:
+      - build
+    steps:
+      - uses: philips-labs/tern-action@v1.1.0
+        id: scan
+        with:
+          image: mormahr/pdf-service:sha-${{ github.sha }}
+          format: human
+          output: licenses.human.txt
+      - uses: actions/upload-artifact@v2
+        with:
+          name: tern
+          path: ${{ steps.scan.outputs.file }}
+
   tag:
     runs-on: ubuntu-20.04
     if: github.ref == 'refs/heads/main'
