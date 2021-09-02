@@ -67,8 +67,10 @@ jobs:
           push: ${{ github.event_name != 'pull_request' }}
           build-args: GITHUB_SHA=${{ github.sha }}
           cache-from: |
-            type=registry,ref=mormahr/pdf-service:latest
+            type=registry,ref=mormahr/pdf-service:main
+            type=registry,ref=mormahr/pdf-service:main-testing
             type=registry,ref=mormahr/pdf-service:${{ steps.extract_branch.outputs.branch }}
+            type=registry,ref=mormahr/pdf-service:${{ steps.extract_branch.outputs.branch }}-testing
           cache-to: type=inline
           tags: ${{ steps.docker_meta.outputs.tags }}
           labels: ${{ steps.docker_meta.outputs.labels }}
@@ -81,8 +83,10 @@ jobs:
           push: ${{ github.event_name != 'pull_request' }}
           build-args: GITHUB_SHA=${{ github.sha }}
           cache-from: |
-            type=registry,ref=mormahr/pdf-service:latest
+            type=registry,ref=mormahr/pdf-service:main
+            type=registry,ref=mormahr/pdf-service:main-testing
             type=registry,ref=mormahr/pdf-service:${{ steps.extract_branch.outputs.branch }}
+            type=registry,ref=mormahr/pdf-service:${{ steps.extract_branch.outputs.branch }}-testing
           cache-to: type=inline
           tags: ${{ steps.docker_meta_testing.outputs.tags }}
           labels: ${{ steps.docker_meta_testing.outputs.labels }}
