@@ -25,7 +25,6 @@ def test_throws_if_fetcher_throws():
                 pass
 
 
-
 def test_throws_when_called_after_exit():
     handler = URLFetchHandler()
     with handler:
