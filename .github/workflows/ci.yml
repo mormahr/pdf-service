@@ -99,7 +99,7 @@ jobs:
 
     container:
       image: mormahr/pdf-service:sha-${{ github.sha }}-testing
-      options: --user root
+      options: --user pdf_service_user
 
     steps:
       - name: Run tests
@@ -118,9 +118,6 @@ jobs:
         with:
           name: Generated test images
           path: /usr/src/app/test-data/*.png
-
-      - name: Install bash for codecov uploader
-        run: apk add bash
 
       - name: Upload coverage report
         uses: codecov/codecov-action@v1
