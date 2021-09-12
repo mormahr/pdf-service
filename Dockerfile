@@ -32,14 +32,14 @@ FROM python:3.9.7-alpine3.14 AS builder
 WORKDIR /usr/src/app
 
 RUN apk add --no-cache \
-      musl-dev \
-      python3-dev \
-      jpeg-dev \
-      openjpeg-dev \
-      zlib-dev \
-      libffi-dev \
-      openssl-dev \
-      pango-dev \
+      musl \
+      python3 \
+      jpeg \
+      openjpeg \
+      zlib \
+      libffi \
+      openssl \
+      pango \
       gdk-pixbuf \
       shared-mime-info \
       # fonts
@@ -66,6 +66,7 @@ FROM builder AS testing
 USER root
 
 RUN apk add --no-cache \
+      openssl-dev \
       cargo \
       poppler-utils \
       poppler-dev \
