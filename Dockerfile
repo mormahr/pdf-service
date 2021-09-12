@@ -13,7 +13,6 @@ RUN apk add --no-cache \
       libffi-dev \
       openssl-dev \
       pango-dev \
-      gdk-pixbuf \
       shared-mime-info
 
 RUN addgroup -S pdf_service_group && \
@@ -40,7 +39,6 @@ RUN apk add --no-cache \
       libffi \
       openssl \
       pango \
-      gdk-pixbuf \
       shared-mime-info \
       # fonts
       ttf-opensans \
