@@ -58,6 +58,13 @@ COPY --from=compiler /home/pdf_service_user/.local/ /home/pdf_service_user/.loca
 ENV PATH="/home/pdf_service_user/.local/bin:${PATH}"
 ENV PYTHONPATH="/home/pdf_service_user/.local/lib/python3.9/site-packages:${PYTHONPATH}"
 
+# FROM alpine:3.14 AS production_sourcer
+# Copy files needed for production image into this step and then copy into a single layer in prod
+# image.
+
+# ADD pdf_service .
+# ADD
+
 FROM builder AS testing
 # Testing stage only for local testing, edit ci.yml test job accordingly.
 
@@ -88,7 +95,7 @@ ENV SENTRY_RELEASE=$GITHUB_SHA
 FROM builder AS production
 # Named stage so it can be optimized in the future. (Stage name is referenced by CI build script.)
 
-COPY . .
+COPY pdf_service ./pdf_service
 
 ARG GITHUB_SHA
 ENV SENTRY_RELEASE=$GITHUB_SHA
