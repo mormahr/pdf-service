@@ -279,3 +279,12 @@ dmypy.json
 
 e2e
 .github
+.git
+.dockerignore
+.gitignore
+CHANGELOG.md
+Dockerfile
+README.md
+test-watch
+update-dependencies-from-setup
+update-test-data
