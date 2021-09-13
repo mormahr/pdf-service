@@ -2,7 +2,9 @@ version: "3.8"
 services:
   pdf:
     image: "mormahr/pdf-service:${TAG}"
+    platform: ${PLATFORM}
+
   test:
-    build: .
+    image: "mormahr/pdf-service:${TAG}-e2e"
     links:
       - "pdf:pdf"
