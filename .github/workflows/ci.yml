@@ -142,7 +142,8 @@ jobs:
         run: |
           cd e2e
           export TAG="sha-$GITHUB_SHA"
-          docker-compose up --build test
+          docker-compose build test
+          docker-compose run --rm test
 
   tag:
     runs-on: ubuntu-20.04
