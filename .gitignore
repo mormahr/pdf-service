@@ -277,5 +277,5 @@ dmypy.json
 
 # End of https://www.toptal.com/developers/gitignore/api/python,intellij+all,macos,linux
 
-test-data/*.pdf
+e2e/data/**/*.pdf
 coverage
