@@ -118,7 +118,8 @@ jobs:
       - name: Set up QEMU
         uses: docker/setup-qemu-action@master
         with:
-          platforms: all
+          platforms: ${{ matrix.platform }}
+        if: ${{ matrix.platform != 'linux/amd64' }}
 
       - name: Run tests
         run: |
@@ -168,7 +169,8 @@ jobs:
       - name: Set up QEMU
         uses: docker/setup-qemu-action@master
         with:
-          platforms: all
+          platforms: ${{ matrix.platform }}
+        if: ${{ matrix.platform != 'linux/amd64' }}
 
       - name: Run visual tests
         run: |
