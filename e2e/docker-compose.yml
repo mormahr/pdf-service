@@ -5,6 +5,6 @@ services:
     platform: ${PLATFORM}
 
   test:
-    build: .
+    image: "mormahr/pdf-service:${TAG}-e2e"
     links:
       - "pdf:pdf"
