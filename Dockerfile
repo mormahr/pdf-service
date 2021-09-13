@@ -39,7 +39,6 @@ RUN apk add --no-cache \
       libffi \
       openssl \
       pango \
-      shared-mime-info \
       # fonts
       ttf-opensans \
       ttf-dejavu \
