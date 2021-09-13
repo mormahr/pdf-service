@@ -97,52 +97,53 @@ jobs:
     needs:
       - build
 
-    container:
-      image: mormahr/pdf-service:sha-${{ github.sha }}-testing
-      options: --user pdf_service_user
-
     steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
       - name: Run tests
         run: |
-          cd /usr/src/app
-          python -m pytest \
-            -rA \
-            --cov=pdf_service \
-            --cov-report term \
-            --cov-report html:coverage/cov_html \
-            --cov-report xml:coverage/cov.xml \
-            --cov-report annotate:coverage/cov_annotate
+          mkdir coverage
+          chown 1001 coverage
 
-      - uses: actions/upload-artifact@v2
-        if: ${{ failure() }}
-        with:
-          name: Generated test images
-          path: /usr/src/app/test-data/*.png
+          docker run \
+            --rm \
+            --user pdf_service_user \
+            -v "$(pwd)/coverage:/usr/src/app/coverage/" \
+            mormahr/pdf-service:sha-${{ github.sha }}-testing \
+            python -m pytest \
+              -rA \
+              --cov=pdf_service \
+              --cov-report term \
+              --cov-report html:coverage/cov_html \
+              --cov-report xml:coverage/cov.xml \
+              --cov-report annotate:coverage/cov_annotate
 
       - name: Upload coverage report
         uses: codecov/codecov-action@v1
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
-          files: /usr/src/app/coverage/cov.xml
+          files: coverage/cov.xml
           flags: unit
           name: unit
           fail_ci_if_error: true
           verbose: true
-          root_dir: /usr/src/app
 
   test-e2e:
     runs-on: ubuntu-20.04
     needs:
       - build
-    services:
-      pdf:
-        image: mormahr/pdf-service:sha-${{ github.sha }}
-        ports:
-          - 8080:8080
 
     steps:
-      - name: "Generate basic PDF without returning invalid status code"
-        run: curl -f --data "<p>Hello World</p>" http://localhost:8080/generate > test.pdf
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Run visual tests
+        run: |
+          cd e2e
+          export TAG="sha-$GITHUB_SHA"
+          docker-compose up --build test
+
   tag:
     runs-on: ubuntu-20.04
     if: github.ref == 'refs/heads/main'

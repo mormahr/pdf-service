@@ -77,6 +77,9 @@ ADD requirements-dev.txt .
 
 RUN pip install --user --no-cache-dir -r requirements-dev.txt
 
+RUN mkdir -p /usr/src/app/coverage
+VOLUME /usr/src/app/coverage
+
 COPY . .
 
 ARG GITHUB_SHA

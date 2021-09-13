@@ -1,0 +1,8 @@
+version: "3.8"
+services:
+  pdf:
+    image: "mormahr/pdf-service:${TAG}"
+  test:
+    build: .
+    links:
+      - "pdf:pdf"
