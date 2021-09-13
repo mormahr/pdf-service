@@ -1,7 +1,7 @@
 # Changelog
 
 ## [Unreleased] [2.0.0] - ?
-**WeasyPrint: v53.2**
+**WeasyPrint: v53.3**
 
 Summary: WeasyPrint v53, alpine and much smaller image.
 
@@ -14,7 +14,7 @@ Summary: WeasyPrint v53, alpine and much smaller image.
     [#156](https://github.com/mormahr/pdf-service/pull/156)
 
 ### Improvements
-- Reduced Docker image size from 363.98 MB (v1.1) to 60.84 MB (v2)
+- Reduced Docker image size from 363.98 MB (v1.1) to 59.48 MB (v2)
     [#136](https://github.com/mormahr/pdf-service/pull/136)
     [#137](https://github.com/mormahr/pdf-service/pull/137)
     [#141](https://github.com/mormahr/pdf-service/pull/141)
@@ -23,6 +23,7 @@ Summary: WeasyPrint v53, alpine and much smaller image.
     [#161](https://github.com/mormahr/pdf-service/pull/161)
     [#163](https://github.com/mormahr/pdf-service/pull/163)
     [#164](https://github.com/mormahr/pdf-service/pull/164)
+    [#165](https://github.com/mormahr/pdf-service/pull/165)
 - Using [tini](https://github.com/krallin/tini) as the entrypoint
     [#134](https://github.com/mormahr/pdf-service/pull/134)
 
