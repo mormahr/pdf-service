@@ -29,14 +29,22 @@ jobs:
             type=edge,branch=main
             type=sha,format=long
 
+      - name: Install jq
+        run: sudo apt-get install jq
+
       - name: Tag
         env:
           INPUT_TAGS: ${{ steps.docker_meta.outputs.tags }}
         run: |
-          docker pull mormahr/pdf-service:sha-${{ github.sha }}
-          echo "$INPUT_TAGS" | while read -r tag
+          echo "$INPUT_TAGS" | while read -r TAG
           do
-            echo "$tag"
-            docker tag mormahr/pdf-service:sha-${{ github.sha }} "$tag"
-            docker push "$tag"
+            echo "tagging $TAG"
+            MANIFEST_LIST=$( \
+              docker manifest inspect mormahr/pdf-service:sha-${{ github.sha }} | \
+              jq -rc '.manifests[].digest' | \
+              sed -e 's/^/mormahr\/pdf-service@/' | \
+              tr '\n' ' ' \
+            )
+            docker manifest create "$TAG" $MANIFEST_LIST
+            docker manifest push "$TAG"
           done
