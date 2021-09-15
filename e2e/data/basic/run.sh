@@ -11,7 +11,8 @@ cd "$( cd "$(dirname "${BASH_SOURCE[0]}")" ; pwd -P )"
 curl \
   --fail \
   --silent \
-  -F index.html=@index.html \
+  -H "Content-Type: text/html" \
+  --data "@index.html" \
   "$PDF_SERVICE_URL/generate" \
   > generated.pdf
 
