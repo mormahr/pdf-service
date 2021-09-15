@@ -8,3 +8,5 @@ services:
     image: "mormahr/pdf-service:${TAG}-e2e"
     links:
       - "pdf:pdf"
+    volumes:
+      - "./diffs:/root/diffs"

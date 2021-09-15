@@ -233,6 +233,12 @@ jobs:
           export PLATFORM="${{ matrix.platform }}"
           docker-compose run --rm test
 
+      - uses: actions/upload-artifact@v2
+        if: ${{ failure() }}
+        with:
+          name: visual-diffs
+          path: e2e/diffs
+
   tag:
     runs-on: ubuntu-20.04
     if: github.ref == 'refs/heads/main'
