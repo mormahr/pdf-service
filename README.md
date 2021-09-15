@@ -2,9 +2,9 @@
 <p align="center"><strong>Stateless HTTP API to convert HTML to PDF</strong></p>
 <p align="center">
   <a href="https://codecov.io/github/mormahr/pdf-service?branch=main"><img alt="codecov.io" src="https://codecov.io/github/mormahr/pdf-service/coverage.svg?branch=main"/></a>
-  <img alt="Docker Image Version" src="https://img.shields.io/docker/v/mormahr/pdf-service?sort=semver" />
-  <img alt="Docker Pulls" src="https://img.shields.io/docker/pulls/mormahr/pdf-service" />
-  <img alt="Docker Image Size" src="https://img.shields.io/docker/image-size/mormahr/pdf-service?sort=semver" />
+  <a href="https://hub.docker.com/r/mormahr/pdf-service"><img alt="Docker Image Version" src="https://img.shields.io/docker/v/mormahr/pdf-service?sort=semver" /></a>
+  <a href="https://hub.docker.com/r/mormahr/pdf-service"><img alt="Docker Pulls" src="https://img.shields.io/docker/pulls/mormahr/pdf-service" /></a>
+  <a href="https://hub.docker.com/r/mormahr/pdf-service"><img alt="Docker Image Size" src="https://img.shields.io/docker/image-size/mormahr/pdf-service?sort=semver" /></a>
 </p>
 
 A dockerized HTTP service, that generates PDF files from HTML using [WeasyPrint][weasyprint].
@@ -87,21 +87,8 @@ We strongly recommend that you use a release version instead of `:edge`.
 ### Licensing
 
 The service code is licensed under the MIT license. WeasyPrint, the underlying PDF generator
-library, is licensed under the BSD license. The prebuilt container image contains a variety of
-licenses, including GPLv2 and GPLv3 code.
-
-Currently, the image also contains AGPLv3 code, through the use of poppler for visual integration
-tests. Poppler is not involved in generating PDFs, it's  just included for the integration testing
-suite. I hope to remove the testing dependencies from the production image in the future.
-
-After consulting [an article][container-os-article-1] about GPL licensing in containers, I think
-this should not  cause issues for stacks that use this container image in a closed source context,
-as long as the image is [not modified][stackoverflow-aGPL-modified]. If it is modified, you should
-look further into licensing requirements, although adding fonts shouldn't be a problem. From
-my understanding, the affero clause is not triggered here, since the user is not interacting with 
-poppler at all.
-
-This section is how I understood the licensing requirements and is not legal advice.
+library, is licensed under the BSD license. The prebuilt production container image contains a 
+variety of licenses, including GPLv2 and GPLv3 code.
 
 ### Security
 
@@ -137,6 +124,18 @@ credentials you set up in the reverse proxy.
 
 The service has a `/health` endpoint that will respond with a `200` status code if the service is
 running. This endpoint is also configured as a docker [`HEALTHCHECK`][docker-healthcheck].
+
+### Supported architectures
+
+The docker image supports the `linux/amd64` (regular Intel and AMD 64bit processors on x86_64), 
+`linux/arm64` (Apple Silicon, AWS Graviton, etc.) and `linux/arm/v7` (Raspberry Pi) architectures.
+Image sizes and other information that varies between architectures is taken from the `linux/amd64`
+variant.
+
+If you need a different architecture, please open an issue with your use-case.
+
+Native Windows docker images are not supported. The linux image can be run on Windows using Docker
+Desktop.
 
 ## Development
 
