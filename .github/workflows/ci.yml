@@ -244,7 +244,7 @@ jobs:
     needs:
       - build
     steps:
-      - uses: philips-labs/tern-action@v1.1.0
+      - uses: philips-labs/tern-action@v1.2.0
         id: scan
         with:
           image: mormahr/pdf-service:sha-${{ github.sha }}
