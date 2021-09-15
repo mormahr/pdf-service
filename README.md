@@ -87,21 +87,8 @@ We strongly recommend that you use a release version instead of `:edge`.
 ### Licensing
 
 The service code is licensed under the MIT license. WeasyPrint, the underlying PDF generator
-library, is licensed under the BSD license. The prebuilt container image contains a variety of
-licenses, including GPLv2 and GPLv3 code.
-
-Currently, the image also contains AGPLv3 code, through the use of poppler for visual integration
-tests. Poppler is not involved in generating PDFs, it's  just included for the integration testing
-suite. I hope to remove the testing dependencies from the production image in the future.
-
-After consulting [an article][container-os-article-1] about GPL licensing in containers, I think
-this should not  cause issues for stacks that use this container image in a closed source context,
-as long as the image is [not modified][stackoverflow-aGPL-modified]. If it is modified, you should
-look further into licensing requirements, although adding fonts shouldn't be a problem. From
-my understanding, the affero clause is not triggered here, since the user is not interacting with 
-poppler at all.
-
-This section is how I understood the licensing requirements and is not legal advice.
+library, is licensed under the BSD license. The prebuilt production container image contains a 
+variety of licenses, including GPLv2 and GPLv3 code.
 
 ### Security
 
