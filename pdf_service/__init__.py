@@ -1,5 +1,5 @@
 import logging
-from sentry_sdk import init
+from sentry_sdk import init, configure_scope
 from flask import Flask, make_response
 from sentry_sdk.integrations.flask import FlaskIntegration
 from sentry_sdk.integrations.logging import LoggingIntegration
@@ -33,6 +33,10 @@ def generate_pdf():
 
 @pdf_service.route('/health', methods=['GET'])
 def health():
+    with configure_scope() as scope:
+        if scope.transaction:
+            scope.transaction.sampled = False
+
     response = make_response("Healthy")
     return response
 

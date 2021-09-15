@@ -29,6 +29,8 @@ Summary: WeasyPrint v53, alpine and much smaller image.
     [#170](https://github.com/mormahr/pdf-service/pull/170)
 - Using [tini](https://github.com/krallin/tini) as the entrypoint
     [#134](https://github.com/mormahr/pdf-service/pull/134)
+- Disabled Sentry performance sampling of `/health` endpoint
+    [#174](https://github.com/mormahr/pdf-service/pull/174)
 
 ## [1.1.0] - 2021-09-01
 **WeasyPrint: v52.5**
