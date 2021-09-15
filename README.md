@@ -138,6 +138,18 @@ credentials you set up in the reverse proxy.
 The service has a `/health` endpoint that will respond with a `200` status code if the service is
 running. This endpoint is also configured as a docker [`HEALTHCHECK`][docker-healthcheck].
 
+### Supported architectures
+
+The docker image supports the `linux/amd64` (regular Intel and AMD 64bit processors on x86_64), 
+`linux/arm64` (Apple Silicon, AWS Graviton, etc.) and `linux/arm/v7` (Raspberry Pi) architectures.
+Image sizes and other information that varies between architectures is taken from the `linux/amd64`
+variant.
+
+If you need a different architecture, please open an issue with your use-case.
+
+Native Windows docker images are not supported. The linux image can be run on Windows using Docker
+Desktop.
+
 ## Development
 
 ### Setup the development environment

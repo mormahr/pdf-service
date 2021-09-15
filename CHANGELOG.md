@@ -24,6 +24,9 @@ Summary: WeasyPrint v53, alpine and much smaller image.
     [#163](https://github.com/mormahr/pdf-service/pull/163)
     [#164](https://github.com/mormahr/pdf-service/pull/164)
     [#165](https://github.com/mormahr/pdf-service/pull/165)
+- Added support for ARM64 (Apple Silicon, AWS Graviton, etc.) and ARMv7 (Raspberry Pi) architectures
+    [#162](https://github.com/mormahr/pdf-service/pull/162)
+    [#170](https://github.com/mormahr/pdf-service/pull/170)
 - Using [tini](https://github.com/krallin/tini) as the entrypoint
     [#134](https://github.com/mormahr/pdf-service/pull/134)
 
