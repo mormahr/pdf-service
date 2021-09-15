@@ -3,7 +3,7 @@
 ## [Unreleased] [2.0.0] - ?
 **WeasyPrint: v53.3**
 
-Summary: WeasyPrint v53, alpine and much smaller image.
+Summary: WeasyPrint v53, ARM multi-arch and much smaller image.
 
 ### Breaking Changes
 - Updated to WeasyPrint v53 (includes visual changes)
