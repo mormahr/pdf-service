@@ -1,4 +1,4 @@
-FROM python:3.9.7-alpine3.14 AS compiler
+FROM python:3.10.0-alpine3.14 AS compiler
 
 WORKDIR /usr/src/app
 
@@ -26,7 +26,7 @@ COPY requirements.txt .
 
 RUN pip install --user --no-cache-dir -r requirements.txt
 
-FROM python:3.9.7-alpine3.14 AS builder
+FROM python:3.10.0-alpine3.14 AS builder
 
 WORKDIR /usr/src/app
 
