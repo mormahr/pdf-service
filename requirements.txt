@@ -18,7 +18,7 @@ sentry-sdk==1.4.2
 six==1.16.0
 tinycss2==1.1.0
 urllib3==1.26.7
-weasyprint==53.3
+weasyprint==53.4
 webencodings==0.5.1
 Werkzeug==2.0.2
 zopfli==0.1.8
