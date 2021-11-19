@@ -1,4 +1,4 @@
-FROM alpine:3.14
+FROM alpine:3.15
 
 WORKDIR /root
 ENV PDF_SERVICE_URL=http://pdf:8080
