@@ -20,5 +20,5 @@ tinycss2==1.1.1
 urllib3==1.26.8
 weasyprint==54.1
 webencodings==0.5.1
-Werkzeug==2.0.2
+Werkzeug==2.0.3
 zopfli==0.1.8
