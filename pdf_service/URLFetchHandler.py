@@ -1,9 +1,11 @@
+import io
 from typing import Optional
 
 from werkzeug.datastructures import MultiDict
 from werkzeug.exceptions import BadRequest, Forbidden, HTTPException
 from sentry_sdk import add_breadcrumb
 from urllib.parse import urlparse, ParseResult
+from pdf_service.data_uri import parse as datauri_parse
 
 from .errors import URLFetcherCalledAfterExitException
 
@@ -62,6 +64,9 @@ class URLFetchHandler:
         :raise: :class:`werkzeug.exceptions.BadRequest`, if file wasn't found internally
         :raise: :class:`ForbiddenURLFetchError`, if file can't be fetched because it's not allowed
         """
+        if url.startswith("data:"):
+            return self._handle_data_fetch(url)
+
         parsed = urlparse(url)
         if not bool(parsed.netloc):
             # No domain name -> internal fetch
@@ -91,6 +96,17 @@ class URLFetchHandler:
                 'file_obj': file,
                 'mime_type': file.content_type
             }
+
+    def _handle_data_fetch(self, url: str):
+        missing_padding = len(url) % 4
+        url_padded = url if missing_padding == 0 else url + ("=" * missing_padding)
+        (mimetype, _, _, _, data) = datauri_parse(url_padded)
+        file = io.BytesIO(data)
+
+        return {
+            'file_obj': file,
+            'mine_type': mimetype,
+        }
 
     def _handle_external_fetch(self, url: str, parsed: ParseResult):
         add_breadcrumb(message="Refused to fetch URL", data={'url': url})
