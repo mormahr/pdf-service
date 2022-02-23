@@ -105,7 +105,7 @@ class URLFetchHandler:
 
         return {
             'file_obj': file,
-            'mine_type': mimetype,
+            'mime_type': mimetype,
         }
 
     def _handle_external_fetch(self, url: str, parsed: ParseResult):
