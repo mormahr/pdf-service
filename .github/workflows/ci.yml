@@ -203,6 +203,9 @@ jobs:
           fail_ci_if_error: true
           verbose: true
 
+      - name: Upload coverage report (Coveralls)
+        uses: AndreMiras/coveralls-python-action@v20201129
+
   test-e2e:
     runs-on: ubuntu-20.04
     needs:
