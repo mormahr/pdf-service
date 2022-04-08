@@ -5,7 +5,7 @@ cffi==1.15.0
 click==8.1.2
 cssselect2==0.5.0
 Flask==2.1.1
-fonttools==4.31.2
+fonttools==4.32.0
 html5lib==1.1
 itsdangerous==2.1.2
 Jinja2==3.1.0
