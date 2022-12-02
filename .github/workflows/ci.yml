@@ -231,7 +231,7 @@ jobs:
           export PLATFORM="${{ matrix.platform }}"
           docker-compose run --rm test
 
-      - uses: actions/upload-artifact@v2
+      - uses: actions/upload-artifact@v3
         if: ${{ failure() }}
         with:
           name: visual-diffs
@@ -248,7 +248,7 @@ jobs:
           image: mormahr/pdf-service:sha-${{ github.sha }}
           format: human
           output: licenses.human.txt
-      - uses: actions/upload-artifact@v2
+      - uses: actions/upload-artifact@v3
         with:
           name: tern
           path: ${{ steps.scan.outputs.file }}
