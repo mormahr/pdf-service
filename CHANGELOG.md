@@ -26,7 +26,7 @@ Summary: WeasyPrint v53+, ARM multi-arch and much smaller image.
     [#163](https://github.com/mormahr/pdf-service/pull/163)
     [#164](https://github.com/mormahr/pdf-service/pull/164)
     [#165](https://github.com/mormahr/pdf-service/pull/165)
-- Added support for ARM64 (Apple Silicon, AWS Graviton, etc.) and ARMv7 (Raspberry Pi) architectures
+- Added support for ARM64 (Apple Silicon, AWS Graviton, etc.) architecture
     [#162](https://github.com/mormahr/pdf-service/pull/162)
     [#170](https://github.com/mormahr/pdf-service/pull/170)
 - Added support for `data:` URIs
