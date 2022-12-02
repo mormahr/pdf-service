@@ -39,9 +39,6 @@ RUN apk add --no-cache \
       libffi \
       openssl \
       pango \
-      # fonts
-      ttf-opensans \
-      ttf-dejavu \
       ghostscript-fonts \
       # Used as the entrypoint
       tini \
@@ -91,7 +88,7 @@ COPY . .
 ARG GITHUB_SHA
 ENV SENTRY_RELEASE=$GITHUB_SHA
 
-FROM builder AS production
+FROM builder AS core
 # Named stage so it can be optimized in the future. (Stage name is referenced by CI build script.)
 
 COPY pdf_service ./pdf_service
@@ -105,3 +102,11 @@ HEALTHCHECK --interval=2s --timeout=2s --retries=5 --start-period=2s CMD curl --
 
 CMD tini gunicorn -w $WORKER_COUNT -t 0 -b 0.0.0.0:8080 pdf_service:pdf_service
 EXPOSE 8080
+
+FROM core AS production
+
+USER root
+RUN apk add --no-cache \
+      ttf-opensans \
+      ttf-dejavu
+USER pdf_service_user
