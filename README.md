@@ -127,8 +127,8 @@ running. This endpoint is also configured as a docker [`HEALTHCHECK`][docker-hea
 
 ### Supported architectures
 
-The docker image supports the `linux/amd64` (regular Intel and AMD 64bit processors on x86_64), 
-`linux/arm64` (Apple Silicon, AWS Graviton, etc.) and `linux/arm/v7` (Raspberry Pi) architectures.
+The docker image supports the `linux/amd64` (regular Intel and AMD 64bit processors on x86_64) and 
+`linux/arm64` (Apple Silicon, AWS Graviton, etc.) architectures.
 Image sizes and other information that varies between architectures is taken from the `linux/amd64`
 variant.
 
