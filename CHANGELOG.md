@@ -14,6 +14,8 @@ Summary: WeasyPrint v53+, ARM multi-arch and much smaller image.
     [#267](https://github.com/mormahr/pdf-service/pull/267)
 - Switched base image from debian buster to alpine v3.14 (includes visual changes)
     [#119](https://github.com/mormahr/pdf-service/pull/119)
+- Updated alpine to v3.17 (includes visual changes)
+    [#277](https://github.com/mormahr/pdf-service/pull/277)
 - Enable [HTML presentational hints][whatwg-presentational-hints] [option in WeasyPrint][weasyprint-presentational-hints]
     [#156](https://github.com/mormahr/pdf-service/pull/156)
 
