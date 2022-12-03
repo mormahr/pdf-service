@@ -21,4 +21,4 @@ urllib3==1.26.13
 weasyprint==54.3
 webencodings==0.5.1
 Werkzeug==2.2.2
-zopfli==0.2.1
+zopfli==0.2.2
