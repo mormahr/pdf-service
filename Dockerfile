@@ -42,6 +42,7 @@ RUN apk add --no-cache \
       # fonts
       ttf-opensans \
       ttf-dejavu \
+      font-noto-emoji \
       ghostscript-fonts \
       # Used as the entrypoint
       tini \
