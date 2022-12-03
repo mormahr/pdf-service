@@ -287,4 +287,4 @@ Dockerfile
 README.md
 test-watch
 update-dependencies-from-setup
-update-test-data
+regenerate-e2e-references

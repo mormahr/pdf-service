@@ -1,0 +1,13 @@
+version: "3.8"
+services:
+  pdf:
+    build: .
+
+  regenerate:
+    build: e2e
+    links:
+      - "pdf:pdf"
+    volumes:
+      - "./e2e/data:/root/data"
+      - "./e2e/diffs:/root/diffs"
+    command: ./scripts/regenerate.sh

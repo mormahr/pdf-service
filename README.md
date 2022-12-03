@@ -157,11 +157,11 @@ Desktop.
 
 ### Visual tests with reference images
 
-`test-data` contains reference inputs `*.html` and corresponding outputs `*.png`.
-A test suite will render the html files and will compare the output with the reference images to 
-ensure no changes slipped in.
+`e2e/data` contains reference inputs `*.html` and corresponding output `.png`.
+The e2e test will render the html files and compare the output with the reference images to ensure 
+no changes slipped in.
 
-To update test-data or add new test cases run `./update-test-data`.
+To update reference images or add new test cases run `./regenerate-e2e-references`.
 
 [weasyprint]: https://weasyprint.org
 [semver]: https://semver.org
