@@ -17,7 +17,7 @@ pyphen==0.14.0
 sentry-sdk==1.28.1
 six==1.16.0
 tinycss2==1.2.1
-urllib3==1.26.16
+urllib3==2.0.5
 weasyprint==58.1
 webencodings==0.5.1
 Werkzeug==2.3.7
