@@ -6,7 +6,7 @@ cryptography==41.0.4
 diffimg==0.3.0
 docopt==0.6.2
 fire==0.5.0
-iniconfig==1.1.1
+iniconfig==2.0.0
 packaging==21.3
 pdf2image==1.16.3
 pdfminer.six==20201018
