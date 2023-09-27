@@ -1,4 +1,4 @@
-attrs==21.4.0
+attrs==23.1.0
 chardet==4.0.0
 colorama==0.4.6
 coverage==5.5
