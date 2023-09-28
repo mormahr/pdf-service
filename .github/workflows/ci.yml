@@ -6,7 +6,7 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
 
     steps:
       - name: Checkout code
@@ -100,7 +100,7 @@ jobs:
           platforms: linux/amd64,linux/arm64
 
   build-e2e:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
 
     steps:
       - name: Checkout code
@@ -153,7 +153,7 @@ jobs:
           labels: ${{ steps.docker_meta_testing.outputs.labels }}
 
   test:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
     needs:
       - build
 
@@ -203,7 +203,7 @@ jobs:
           verbose: true
 
   test-e2e:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
     needs:
       - build
       - build-e2e
@@ -238,7 +238,7 @@ jobs:
           path: e2e/diffs
 
   licences:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
     needs:
       - build
     steps:
@@ -254,7 +254,7 @@ jobs:
           path: ${{ steps.scan.outputs.file }}
 
   tag:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
     if: github.ref == 'refs/heads/main'
     needs:
       - build
