@@ -2,7 +2,7 @@ attrs==23.1.0
 chardet==4.0.0
 colorama==0.4.6
 coverage==7.3.1
-cryptography==41.0.4
+cryptography==41.0.6
 diffimg==0.3.0
 docopt==0.6.2
 fire==0.5.0
