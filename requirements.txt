@@ -1,5 +1,5 @@
 blinker==1.6.2
-Brotli==1.1.0
+Brotli==1.2.0
 certifi==2023.7.22
 cffi==1.15.1
 click==8.1.7
