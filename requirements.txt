@@ -2,7 +2,7 @@ blinker==1.6.2
 Brotli==1.1.0
 certifi==2023.7.22
 cffi==1.15.1
-click==8.1.7
+click==8.5.0
 cssselect2==0.7.0
 Flask==2.3.3
 fonttools==4.42.1
